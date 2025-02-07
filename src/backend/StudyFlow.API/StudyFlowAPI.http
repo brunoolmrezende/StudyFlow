@@ -1,0 +1,6 @@
+@StudyFlowAPI_HostAddress = http://localhost:5159
+
+GET {{StudyFlowAPI_HostAddress}}/weatherforecast/
+Accept: application/json
+
+###
