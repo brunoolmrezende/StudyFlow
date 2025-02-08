@@ -11,10 +11,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="Controllers\" />
-  </ItemGroup>
-
-  <ItemGroup>
     <ProjectReference Include="..\..\shared\StudyFlow.Communication\StudyFlow.Communication.csproj" />
     <ProjectReference Include="..\..\shared\StudyFlow.Exceptions\StudyFlow.Exceptions.csproj" />
     <ProjectReference Include="..\StudyFlow.Application\StudyFlow.Application.csproj" />
