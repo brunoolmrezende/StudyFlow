@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using StudyFlow.Application.UseCases.User.Register;
 using StudyFlow.Communication.Requests;
 using StudyFlow.Communication.Response;
 
@@ -8,9 +9,13 @@ namespace StudyFlow.API.Controllers
     {
         [HttpPost]
         [ProducesResponseType(typeof(ResponseRegisteredUserJson), StatusCodes.Status201Created)]
-        public IActionResult Register([FromBody] RequestRegisterUserJson request)
+        public async Task<IActionResult> Register(
+            [FromServices] IRegisterUserUseCase useCase,
+            [FromBody] RequestRegisterUserJson request)
         {
-            return Created();
+            var response = await useCase.Execute(request);
+
+            return Created(string.Empty, response);
         }
 
     }

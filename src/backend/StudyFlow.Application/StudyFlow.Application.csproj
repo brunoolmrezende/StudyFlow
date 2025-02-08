@@ -7,6 +7,12 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <PackageReference Include="AutoMapper" Version="13.0.1" />
+    <PackageReference Include="FluentValidation" Version="11.11.0" />
+    <PackageReference Include="Microsoft.Extensions.DependencyInjection" Version="9.0.1" />
+  </ItemGroup>
+
+  <ItemGroup>
     <ProjectReference Include="..\..\shared\StudyFlow.Communication\StudyFlow.Communication.csproj" />
     <ProjectReference Include="..\..\shared\StudyFlow.Exceptions\StudyFlow.Exceptions.csproj" />
     <ProjectReference Include="..\StudyFlow.Domain\StudyFlow.Domain.csproj" />
