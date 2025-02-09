@@ -23,6 +23,10 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "StudyFlow.Communication", "
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "StudyFlow.Exceptions", "src\shared\StudyFlow.Exceptions\StudyFlow.Exceptions.csproj", "{C5DFDA2D-D813-491A-829B-0AB92DBC7EA4}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Validators.Test", "tests\ValidatorTest\Validators.Test.csproj", "{1EF22084-EDBE-4E66-9667-71C61BD1F7A7}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CommonTestUtilities", "tests\CommonTestUtilities\CommonTestUtilities.csproj", "{996F7778-1EF1-4397-84B7-98C33048D2AC}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -53,6 +57,14 @@ Global
 		{C5DFDA2D-D813-491A-829B-0AB92DBC7EA4}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{C5DFDA2D-D813-491A-829B-0AB92DBC7EA4}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{C5DFDA2D-D813-491A-829B-0AB92DBC7EA4}.Release|Any CPU.Build.0 = Release|Any CPU
+		{1EF22084-EDBE-4E66-9667-71C61BD1F7A7}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{1EF22084-EDBE-4E66-9667-71C61BD1F7A7}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{1EF22084-EDBE-4E66-9667-71C61BD1F7A7}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{1EF22084-EDBE-4E66-9667-71C61BD1F7A7}.Release|Any CPU.Build.0 = Release|Any CPU
+		{996F7778-1EF1-4397-84B7-98C33048D2AC}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{996F7778-1EF1-4397-84B7-98C33048D2AC}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{996F7778-1EF1-4397-84B7-98C33048D2AC}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{996F7778-1EF1-4397-84B7-98C33048D2AC}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -66,5 +78,7 @@ Global
 		{22A890CC-CD95-4242-BC7C-2571EA5150FF} = {429F2816-24EF-4CB8-AE4F-A294CED688DB}
 		{6058E181-1911-472F-961C-253C942B30FD} = {56FF8758-C065-43E5-8326-A4EF42691C2C}
 		{C5DFDA2D-D813-491A-829B-0AB92DBC7EA4} = {56FF8758-C065-43E5-8326-A4EF42691C2C}
+		{1EF22084-EDBE-4E66-9667-71C61BD1F7A7} = {7DA20672-CE07-4094-9A17-C0660EB618EF}
+		{996F7778-1EF1-4397-84B7-98C33048D2AC} = {7DA20672-CE07-4094-9A17-C0660EB618EF}
 	EndGlobalSection
 EndGlobal
