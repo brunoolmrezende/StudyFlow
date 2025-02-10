@@ -1,5 +1,5 @@
 ﻿using CommonTestUtilities.Requests;
-using Shouldly;
+using FluentAssertions;
 using StudyFlow.Application.UseCases.User.Register;
 using StudyFlow.Exceptions;
 
@@ -16,8 +16,8 @@ namespace Validators.Test.User.Register
 
             var result = validator.Validate(request);
 
-            result.IsValid.ShouldBeTrue();
-            result.Errors.ShouldBeEmpty();
+            result.IsValid.Should().BeTrue();
+            result.Errors.Should().BeEmpty();
         }
 
         [Fact]
@@ -30,9 +30,9 @@ namespace Validators.Test.User.Register
 
             var result = validator.Validate(request);
 
-            result.IsValid.ShouldBeFalse();
-            result.Errors.ShouldNotBeEmpty();
-            result.Errors.ShouldContain(errors => errors.ErrorMessage.Equals(ResourceMessagesException.NAME_EMPTY));
+            result.IsValid.Should().BeFalse();
+            result.Errors.Should().NotBeEmpty();
+            result.Errors.Should().Contain(errors => errors.ErrorMessage.Equals(ResourceMessagesException.NAME_EMPTY));
         }
 
         [Fact]
@@ -45,9 +45,9 @@ namespace Validators.Test.User.Register
 
             var result = validator.Validate(request);
 
-            result.IsValid.ShouldBeFalse();
-            result.Errors.ShouldNotBeEmpty();
-            result.Errors.ShouldContain(errors => errors.ErrorMessage.Equals(ResourceMessagesException.EMAIL_EMPTY));
+            result.IsValid.Should().BeFalse();
+            result.Errors.Should().NotBeEmpty();
+            result.Errors.Should().Contain(errors => errors.ErrorMessage.Equals(ResourceMessagesException.EMAIL_EMPTY));
         }
 
         [Fact]
@@ -60,9 +60,9 @@ namespace Validators.Test.User.Register
 
             var result = validator.Validate(request);
 
-            result.IsValid.ShouldBeFalse();
-            result.Errors.ShouldNotBeEmpty();
-            result.Errors.ShouldContain(errors => errors.ErrorMessage.Equals(ResourceMessagesException.INVALID_EMAIL));
+            result.IsValid.Should().BeFalse();
+            result.Errors.Should().NotBeEmpty();
+            result.Errors.Should().Contain(errors => errors.ErrorMessage.Equals(ResourceMessagesException.INVALID_EMAIL));
         }
 
         [Fact]
@@ -75,9 +75,9 @@ namespace Validators.Test.User.Register
 
             var result = validator.Validate(request);
 
-            result.IsValid.ShouldBeFalse();
-            result.Errors.ShouldNotBeEmpty();
-            result.Errors.ShouldContain(errors => errors.ErrorMessage.Equals(ResourceMessagesException.EMPTY_PASSWORD));
+            result.IsValid.Should().BeFalse();
+            result.Errors.Should().NotBeEmpty();
+            result.Errors.Should().Contain(errors => errors.ErrorMessage.Equals(ResourceMessagesException.EMPTY_PASSWORD));
         }
 
         [Theory]
@@ -94,9 +94,9 @@ namespace Validators.Test.User.Register
 
             var result = validator.Validate(request);
 
-            result.IsValid.ShouldBeFalse();
-            result.Errors.ShouldNotBeEmpty();
-            result.Errors.ShouldContain(errors => errors.ErrorMessage.Equals(ResourceMessagesException.PASSWORD_LENGTH));
+            result.IsValid.Should().BeFalse();
+            result.Errors.Should().NotBeEmpty();
+            result.Errors.Should().Contain(errors => errors.ErrorMessage.Equals(ResourceMessagesException.PASSWORD_LENGTH));
         }
     }
 }
