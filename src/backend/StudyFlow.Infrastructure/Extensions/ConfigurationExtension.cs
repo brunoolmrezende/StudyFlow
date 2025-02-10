@@ -8,5 +8,10 @@ namespace StudyFlow.Infrastructure.Extensions
         {
             return configuration.GetConnectionString("ConnectionMySQLServer")!;
         }
+
+        public static bool IsUnitTestEnviroment(this IConfiguration configuration)
+        {
+            return configuration.GetValue<bool>("InMemoryTest");
+        }
     }
 }

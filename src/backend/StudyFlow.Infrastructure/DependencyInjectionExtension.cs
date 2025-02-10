@@ -20,6 +20,11 @@ namespace StudyFlow.Infrastructure
             AddRepositories(services);
             AddEncrypter(services);
 
+            if (configuration.IsUnitTestEnviroment())
+            {
+                return;
+            }
+
             AddDbContext(services, configuration);
             AddFluentMigrator_MySql(services, configuration);
         }
