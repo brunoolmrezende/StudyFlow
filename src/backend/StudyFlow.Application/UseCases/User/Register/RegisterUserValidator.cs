@@ -15,7 +15,6 @@ namespace StudyFlow.Application.UseCases.User.Register
             RuleFor(user => user.Email)
                 .NotEmpty()
                 .WithMessage(ResourceMessagesException.EMAIL_EMPTY);
-            ;
 
             When(user => !string.IsNullOrWhiteSpace(user.Email), () =>
             {
@@ -26,13 +25,13 @@ namespace StudyFlow.Application.UseCases.User.Register
 
             RuleFor(user => user.Password)
                 .NotEmpty()
-                .WithMessage(ResourceMessagesException.EMPTY_PASSWORD); ;
+                .WithMessage(ResourceMessagesException.EMPTY_PASSWORD);
 
             When(user => !string.IsNullOrWhiteSpace(user.Password), () =>
             {
                 RuleFor(user => user.Password)
                     .MinimumLength(8)
-                    .WithMessage(ResourceMessagesException.PASSWORD_LENGTH); ;
+                    .WithMessage(ResourceMessagesException.PASSWORD_LENGTH);
             });
         }
     }

@@ -13,7 +13,9 @@ builder.Services.AddControllers();
 // Learn more about configuring OpenAPI at https://aka.ms/aspnet/openapi
 builder.Services.AddOpenApi();
 
-builder.Services.AddMvc(option => option.Filters.Add(typeof(ExceptionFilters)));
+builder.Services.AddMvc(option => option.Filters.Add<ExceptionFilters>());
+
+builder.Services.AddRouting(option => option.LowercaseUrls = true);
 
 builder.Services.AddInfrastructure(builder.Configuration);
 builder.Services.AddApplication();
@@ -36,7 +38,7 @@ app.MapControllers();
 
 MigrateDatabase();
 
-app.Run();
+await app.RunAsync();
 
 
 void MigrateDatabase()
