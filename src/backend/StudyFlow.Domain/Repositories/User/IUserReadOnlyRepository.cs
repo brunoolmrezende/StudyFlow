@@ -2,6 +2,6 @@
 {
     public interface IUserReadOnlyRepository
     {
-        Task<bool> ExistActiveUserWithEmail(string email);
+        Task<bool> IsEmailRegisteredAndActive(string email);
     }
 }

@@ -7,14 +7,26 @@ namespace StudyFlow.Infrastructure.Repositories
 {
     public class UserRepository(StudyFlowDbContext dbContext) : IUserReadOnlyRepository, IUserWriteOnlyRepository
     {
-        private readonly StudyFlowDbContext _dbContext = dbContext;
+        private readonly StudyFlowDbContext _dbContext;
+
+        public UserRepository(StudyFlowDbContext dbContext)
+        {
+            _dbContext = dbContext;
+        }
 
         public async Task Add(User user)
         {
             await _dbContext.Users.AddAsync(user);
         }
 
-        public async Task<bool> ExistActiveUserWithEmail(string email)
+        public async Task<bool> IsEmailRegisteredAndActive(string email)
+        {
+            return await _dbContext
+                .Users
+                .AnyAsync(user => user.Email == email && user.Active);
+        }
+
+        public async Task<User?> GetUserByEmail(string email)
         {
             return await _dbContext.Users.AnyAsync(user => user.Email == email);
         }
