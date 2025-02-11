@@ -1,6 +1,7 @@
 ﻿using AutoMapper;
 using Microsoft.Extensions.DependencyInjection;
 using StudyFlow.Application.Services.AutoMapper;
+using StudyFlow.Application.UseCases.User.Login.DoLogin;
 using StudyFlow.Application.UseCases.User.Register;
 
 namespace StudyFlow.Application
@@ -16,6 +17,7 @@ namespace StudyFlow.Application
         private static void AddUseCases(this IServiceCollection services)
         {
             services.AddScoped<IRegisterUserUseCase, RegisterUserUseCase>();
+            services.AddScoped<IDoLoginUseCase, DoLoginUseCase>();
         }
 
         private static void AddAutoMapper(this IServiceCollection services)

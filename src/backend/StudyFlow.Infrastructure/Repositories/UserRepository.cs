@@ -5,7 +5,7 @@ using StudyFlow.Infrastructure.DataAccess;
 
 namespace StudyFlow.Infrastructure.Repositories
 {
-    public class UserRepository(StudyFlowDbContext dbContext) : IUserReadOnlyRepository, IUserWriteOnlyRepository
+    public class UserRepository : IUserReadOnlyRepository, IUserWriteOnlyRepository
     {
         private readonly StudyFlowDbContext _dbContext;
 
@@ -28,7 +28,10 @@ namespace StudyFlow.Infrastructure.Repositories
 
         public async Task<User?> GetUserByEmail(string email)
         {
-            return await _dbContext.Users.AnyAsync(user => user.Email == email);
+            return await _dbContext
+                .Users
+                .AsNoTracking()
+                .FirstOrDefaultAsync(user => user.Email == email && user.Active);
         }
     }
 }
