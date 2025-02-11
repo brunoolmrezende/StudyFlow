@@ -18,6 +18,5 @@ namespace StudyFlow.API.Controllers
 
             return Created(string.Empty, response);
         }
-
     }
 }

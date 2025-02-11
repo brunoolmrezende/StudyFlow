@@ -57,7 +57,7 @@ namespace StudyFlow.Application.UseCases.User.Register
 
             var result = validator.Validate(request);
 
-            var emailAlreadyRegistered = await _readOnlyRepository.ExistActiveUserWithEmail(request.Email);
+            var emailAlreadyRegistered = await _readOnlyRepository.IsEmailRegisteredAndActive(request.Email);
 
             if (emailAlreadyRegistered)
             {
