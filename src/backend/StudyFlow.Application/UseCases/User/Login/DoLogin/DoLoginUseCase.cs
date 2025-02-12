@@ -19,7 +19,7 @@ namespace StudyFlow.Application.UseCases.User.Login.DoLogin
             _encryption = encryption;
         }
 
-        public async Task<ResponseRegisteredUserJson> Execute(RequestLoginJson request)
+        public async Task<ResponseRegisteredUserJson> Execute(RequestDoLoginJson request)
         {
             var user = await _repository.GetUserByEmail(request.Email) ?? throw new InvalidLoginException();
 

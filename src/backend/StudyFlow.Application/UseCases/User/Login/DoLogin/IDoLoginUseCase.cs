@@ -5,6 +5,6 @@ namespace StudyFlow.Application.UseCases.User.Login.DoLogin
 {
     public interface IDoLoginUseCase
     {
-        Task<ResponseRegisteredUserJson> Execute(RequestLoginJson request);
+        Task<ResponseRegisteredUserJson> Execute(RequestDoLoginJson request);
     }
 }
