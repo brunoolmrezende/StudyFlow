@@ -1,4 +1,5 @@
 ﻿using Moq;
+using StudyFlow.Domain.Entities;
 using StudyFlow.Domain.Repositories.User;
 
 namespace CommonTestUtilities.Repositories
@@ -15,6 +16,11 @@ namespace CommonTestUtilities.Repositories
         public void ExistActiveUserWithEmail(string email)
         {
             _repository.Setup(repository => repository.IsEmailRegisteredAndActive(email)).ReturnsAsync(true);
+        }
+
+        public void GetUserByEmail(User user)
+        {
+            _repository.Setup(respository => respository.GetUserByEmail(user.Email)).ReturnsAsync(user);
         }
 
         public IUserReadOnlyRepository Build() => _repository.Object;
