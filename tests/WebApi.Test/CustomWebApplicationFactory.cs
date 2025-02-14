@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Mvc.Testing;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
+using StudyFlow.Domain.Security.Cryptography;
 using StudyFlow.Infrastructure.DataAccess;
 
 namespace WebApi.Test
@@ -38,7 +39,9 @@ namespace WebApi.Test
 
                     database.Database.EnsureDeleted();
 
-                    StartDatabase(database);
+                    var encrypter = scope.ServiceProvider.GetRequiredService<IPasswordEncryption>();
+
+                    StartDatabase(database, encrypter);
                 });
     
         }
@@ -47,9 +50,11 @@ namespace WebApi.Test
         public string GetPassword() => _password;
         public string GetUserName() => _user.Name;
 
-        private void StartDatabase(StudyFlowDbContext dbContext)
+        private void StartDatabase(StudyFlowDbContext dbContext, IPasswordEncryption encrypter)
         {
             (_user, _password) = UserBuilder.Build();
+
+            _user.Password = encrypter.Encrypt(_password);
 
             dbContext.Database.EnsureCreated();
 

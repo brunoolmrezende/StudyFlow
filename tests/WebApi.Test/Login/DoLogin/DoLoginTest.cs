@@ -1,7 +1,11 @@
-﻿using FluentAssertions;
+﻿using CommonTestUtilities.Requests;
+using FluentAssertions;
 using StudyFlow.Communication.Requests;
+using StudyFlow.Exceptions;
+using System.Globalization;
 using System.Net;
 using System.Text.Json;
+using WebApi.Test.InlineData;
 
 namespace WebApi.Test.Login.DoLogin
 {
@@ -40,6 +44,27 @@ namespace WebApi.Test.Login.DoLogin
             var result = responseData.RootElement.GetProperty("name").GetString();
 
             result.Should().Be(_userName);
+        }
+
+        [Theory]
+        [ClassData(typeof(CultureInlineDataTest))]
+        public async Task Error_Invalid_Email_Or_Password(string culture)
+        {
+            var request = RequestDoLoginJsonBuilder.Build();
+
+            var response = await DoPost(_endpoint, request, culture);
+
+            response.StatusCode.Should().Be(HttpStatusCode.Unauthorized);
+
+            using var responseBody = await response.Content.ReadAsStreamAsync();
+
+            var responseData = await JsonDocument.ParseAsync(responseBody);
+
+            var errors = responseData.RootElement.GetProperty("errors").EnumerateArray();
+
+            var expectedMessage = ResourceMessagesException.ResourceManager.GetString("INVALID_EMAIL_OR_PASSWORD", new CultureInfo(culture));
+
+            errors.Should().ContainSingle().And.Contain(error => error.GetString()!.Equals(expectedMessage));
         }
     }
 }
