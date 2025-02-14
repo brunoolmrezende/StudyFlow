@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.RateLimiting;
 using StudyFlow.Application.UseCases.User.Login.DoLogin;
 using StudyFlow.Communication.Requests;
 using StudyFlow.Communication.Response;
@@ -10,6 +11,7 @@ namespace StudyFlow.API.Controllers
         [HttpPost]
         [ProducesResponseType(typeof(ResponseRegisteredUserJson), StatusCodes.Status200OK)]
         [ProducesResponseType(typeof(ResponseErrorJson), StatusCodes.Status401Unauthorized)]
+        [EnableRateLimiting("RateLimiterPolicy")]
         public async Task<IActionResult> Login(
             [FromServices] IDoLoginUseCase useCase,
             [FromBody] RequestDoLoginJson request)

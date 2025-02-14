@@ -124,6 +124,15 @@ namespace StudyFlow.Exceptions {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to The maximum number of allowed requests has been reached. Please wait before trying again..
+        /// </summary>
+        public static string TOO_MANY_REQUESTS {
+            get {
+                return ResourceManager.GetString("TOO_MANY_REQUESTS", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Unknown error..
         /// </summary>
         public static string UNKNOWN_ERROR {

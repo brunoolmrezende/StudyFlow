@@ -1,12 +1,15 @@
 using StudyFlow.API.Converters;
 using StudyFlow.API.Filters;
 using StudyFlow.API.Middleware;
+using StudyFlow.API.RateLimits;
 using StudyFlow.Application;
 using StudyFlow.Infrastructure;
 using StudyFlow.Infrastructure.DataAccess.Migrations;
 using StudyFlow.Infrastructure.Extensions;
 
 var builder = WebApplication.CreateBuilder(args);
+
+builder.Services.AddRateLimiter(options => options.AddPolicy<string, RateLimiterPolicy>("RateLimiterPolicy"));
 
 // Add services to the container.
 
@@ -41,6 +44,8 @@ app.UseHttpsRedirection();
 app.UseAuthorization();
 
 app.MapControllers();
+
+app.UseRateLimiter();
 
 MigrateDatabase();
 
