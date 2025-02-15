@@ -1,7 +1,7 @@
 ﻿using StudyFlow.Domain.Security.Cryptography;
 using BC = BCrypt.Net;
 
-namespace StudyFlow.Infrastructure.Security
+namespace StudyFlow.Infrastructure.Security.Cryptography
 {
     public class PasswordEncryption : IPasswordEncryption
     {

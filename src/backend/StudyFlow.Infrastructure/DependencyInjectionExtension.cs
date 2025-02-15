@@ -5,10 +5,12 @@ using Microsoft.Extensions.DependencyInjection;
 using StudyFlow.Domain.Repositories;
 using StudyFlow.Domain.Repositories.User;
 using StudyFlow.Domain.Security.Cryptography;
+using StudyFlow.Domain.Security.Token;
 using StudyFlow.Infrastructure.DataAccess;
 using StudyFlow.Infrastructure.Extensions;
 using StudyFlow.Infrastructure.Repositories;
-using StudyFlow.Infrastructure.Security;
+using StudyFlow.Infrastructure.Security.Cryptography;
+using StudyFlow.Infrastructure.Security.Token;
 using System.Reflection;
 
 namespace StudyFlow.Infrastructure
@@ -19,6 +21,7 @@ namespace StudyFlow.Infrastructure
         {
             AddRepositories(services);
             AddEncrypter(services);
+            AddToken(services, configuration);
 
             if (configuration.IsUnitTestEnviroment())
             {
@@ -52,6 +55,14 @@ namespace StudyFlow.Infrastructure
         private static void AddEncrypter(this IServiceCollection services)
         {
             services.AddScoped<IPasswordEncryption, PasswordEncryption>();
+        }
+
+        private static void AddToken(this IServiceCollection services, IConfiguration configuration)
+        {
+            var expirationTimeMinutes = configuration.GetValue<int>("Settings:Jwt:ExpirationTimeMinutes");
+            var signInKey = configuration.GetValue<string>("Settings:Jwt:SignInKey");
+
+            services.AddScoped<IAccessTokenGenerator>(options => new AccessTokenGenerator(expirationTimeMinutes, signInKey!));
         }
 
         private static void AddFluentMigrator_MySql(this IServiceCollection services, IConfiguration configuration)
