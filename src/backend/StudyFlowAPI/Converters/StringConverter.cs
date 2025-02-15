@@ -8,15 +8,17 @@ namespace StudyFlow.API.Converters
     {
         public override string? Read(ref Utf8JsonReader reader, Type typeToConvert, JsonSerializerOptions options)
         {
-            var value = reader.GetString()!.Trim();
+            var value = reader.GetString();
 
             if (value == null)
             {
                 return null;
             }
 
+            value = value.Trim();
+
             return RemoveExtraWhiteSpaces().Replace(value, " ");
-         }
+        }
 
         public override void Write(Utf8JsonWriter writer, string value, JsonSerializerOptions options)
         {
