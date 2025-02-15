@@ -29,6 +29,8 @@ namespace UseCases.Test.Login.DoLogin
 
             result.Should().NotBeNull();
             result.Name.Should().Be(user.Name);
+            result.Tokens.Should().NotBeNull();
+            result.Tokens.AccessToken.Should().NotBeNullOrEmpty();
         }
 
         [Fact]
@@ -49,13 +51,14 @@ namespace UseCases.Test.Login.DoLogin
         {
             var encryption = new PasswordEncryptionBuilder().Verify(password).Build();
             var repository = new UserReadOnlyRepositoryBuilder();
+            var accessTokenGeerator = JwtTokenGeneratorBuilder.Build();
 
             if (user is not null)
             {
                 repository.GetUserByEmail(user);
             }
 
-            return new DoLoginUseCase(repository.Build(), encryption);
+            return new DoLoginUseCase(repository.Build(), encryption, accessTokenGeerator);
         }
     }
 }

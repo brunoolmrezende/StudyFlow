@@ -41,9 +41,8 @@ namespace WebApi.Test.Login.DoLogin
 
             var responseData = await JsonDocument.ParseAsync(responseBody);
 
-            var result = responseData.RootElement.GetProperty("name").GetString();
-
-            result.Should().Be(_userName);
+            responseData.RootElement.GetProperty("name").GetString().Should().Be(_userName);
+            responseData.RootElement.GetProperty("tokens").GetProperty("accessToken").GetString().Should().NotBeNullOrEmpty();
         }
 
         [Theory]

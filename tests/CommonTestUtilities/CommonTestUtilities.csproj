@@ -13,6 +13,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\..\src\backend\StudyFlow.Application\StudyFlow.Application.csproj" />
+    <ProjectReference Include="..\..\src\backend\StudyFlow.Infrastructure\StudyFlow.Infrastructure.csproj" />
   </ItemGroup>
 
 </Project>

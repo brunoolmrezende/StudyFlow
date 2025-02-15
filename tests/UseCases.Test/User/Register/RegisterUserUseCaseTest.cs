@@ -22,6 +22,8 @@ namespace UseCases.Test.User.Register
 
             result.Should().NotBeNull();
             result.Name.Should().Be(request.Name);
+            result.Tokens.Should().NotBeNull();
+            result.Tokens.AccessToken.Should().NotBeNullOrEmpty();
         }
 
         [Fact]
@@ -60,13 +62,14 @@ namespace UseCases.Test.User.Register
             var readOnlyRepository = new UserReadOnlyRepositoryBuilder();
             var writeOnlyRepository = UserWriteOnlyRepositoryBuilder.Build();
             var unitOfWork = UnitOfWorkBuilder.Build();
+            var accessTokenGenerator = JwtTokenGeneratorBuilder.Build();
 
             if (!string.IsNullOrWhiteSpace(email))
             {
                 readOnlyRepository.ExistActiveUserWithEmail(email);
             }
 
-            return new RegisterUserUseCase(mapper, encryption, readOnlyRepository.Build(), writeOnlyRepository, unitOfWork);
+            return new RegisterUserUseCase(mapper, encryption, readOnlyRepository.Build(), writeOnlyRepository, unitOfWork, accessTokenGenerator);
         }
     }
 }
