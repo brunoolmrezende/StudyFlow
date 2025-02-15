@@ -2,6 +2,7 @@
 using StudyFlow.Communication.Response;
 using StudyFlow.Domain.Repositories.User;
 using StudyFlow.Domain.Security.Cryptography;
+using StudyFlow.Domain.Security.Token;
 using StudyFlow.Exceptions.ExceptionBase;
 
 namespace StudyFlow.Application.UseCases.User.Login.DoLogin
@@ -10,13 +11,16 @@ namespace StudyFlow.Application.UseCases.User.Login.DoLogin
     {
         private readonly IUserReadOnlyRepository _repository;
         private readonly IPasswordEncryption _encryption;
+        private readonly IAccessTokenGenerator _accessTokenGenerator;
 
         public DoLoginUseCase(
             IUserReadOnlyRepository repository,
-            IPasswordEncryption encryption)
+            IPasswordEncryption encryption,
+            IAccessTokenGenerator accessTokenGenerator)
         {
             _repository = repository;
             _encryption = encryption;
+            _accessTokenGenerator = accessTokenGenerator;
         }
 
         public async Task<ResponseRegisteredUserJson> Execute(RequestDoLoginJson request)
@@ -33,6 +37,10 @@ namespace StudyFlow.Application.UseCases.User.Login.DoLogin
             return new ResponseRegisteredUserJson
             {
                 Name = user.Name,
+                Tokens = new ResponseTokenJson
+                {
+                    AccessToken = _accessTokenGenerator.GenerateToken(user.UserIdentifier)
+                }
             };
         }
     }

@@ -5,6 +5,7 @@ using StudyFlow.Communication.Response;
 using StudyFlow.Domain.Repositories;
 using StudyFlow.Domain.Repositories.User;
 using StudyFlow.Domain.Security.Cryptography;
+using StudyFlow.Domain.Security.Token;
 using StudyFlow.Exceptions;
 using StudyFlow.Exceptions.ExceptionBase;
 
@@ -17,19 +18,22 @@ namespace StudyFlow.Application.UseCases.User.Register
         private readonly IUserReadOnlyRepository _readOnlyRepository;
         private readonly IUserWriteOnlyRepository _writeOnlyRepository;
         private readonly IUnitOfWork _unitOfWork;
+        private readonly IAccessTokenGenerator _accesstTokenGenerator;
 
         public RegisterUserUseCase(
             IMapper mapper,
             IPasswordEncryption encryption,
             IUserReadOnlyRepository readOnlyRepository,
             IUserWriteOnlyRepository writeOnlyRepository,
-            IUnitOfWork unitOfWork)
+            IUnitOfWork unitOfWork,
+            IAccessTokenGenerator accessTokenGenerator)
         {
             _mapper = mapper;
             _encryption = encryption;
             _readOnlyRepository = readOnlyRepository;
             _writeOnlyRepository = writeOnlyRepository;
             _unitOfWork = unitOfWork;
+            _accesstTokenGenerator = accessTokenGenerator;
         }
 
         public async Task<ResponseRegisteredUserJson> Execute(RequestRegisterUserJson request)
@@ -39,6 +43,7 @@ namespace StudyFlow.Application.UseCases.User.Register
             var user = _mapper.Map<Domain.Entities.User>(request);
 
             user.Password = _encryption.Encrypt(request.Password);
+            user.UserIdentifier = Guid.NewGuid();
 
             await _writeOnlyRepository.Add(user);
 
@@ -46,7 +51,11 @@ namespace StudyFlow.Application.UseCases.User.Register
 
             return new ResponseRegisteredUserJson
             {
-                Name = request.Name
+                Name = request.Name,
+                Tokens = new ResponseTokenJson
+                {
+                    AccessToken = _accesstTokenGenerator.GenerateToken(user.UserIdentifier)
+                }
             };
             
         }
