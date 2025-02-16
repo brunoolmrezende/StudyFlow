@@ -2,7 +2,9 @@ using StudyFlow.API.Converters;
 using StudyFlow.API.Filters;
 using StudyFlow.API.Middleware;
 using StudyFlow.API.RateLimits;
+using StudyFlow.API.Token;
 using StudyFlow.Application;
+using StudyFlow.Domain.Security.Token;
 using StudyFlow.Infrastructure;
 using StudyFlow.Infrastructure.DataAccess.Migrations;
 using StudyFlow.Infrastructure.Extensions;
@@ -26,8 +28,13 @@ builder.Services.AddMvc(option => option.Filters.Add<ExceptionFilters>());
 
 builder.Services.AddRouting(option => option.LowercaseUrls = true);
 
+builder.Services.AddHttpContextAccessor();
+
 builder.Services.AddInfrastructure(builder.Configuration);
 builder.Services.AddApplication();
+builder.Services.AddScoped<ITokenProvider, HttpContextTokenValue>();
+
+
 
 var app = builder.Build();
 
