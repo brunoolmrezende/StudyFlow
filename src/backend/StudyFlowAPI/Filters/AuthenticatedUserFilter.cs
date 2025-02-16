@@ -45,7 +45,7 @@ namespace StudyFlow.API.Filters
             catch (StudyFlowException studyFlowException)
             {
                 context.HttpContext.Response.StatusCode = (int)studyFlowException.GetHttpStatusCode();
-                context.Result = new UnauthorizedObjectResult(new ResponseErrorJson(ResourceMessagesException.USER_WITHOUT_PERMISSION_ACCESS_RESOURCE));
+                context.Result = new UnauthorizedObjectResult(new ResponseErrorJson(studyFlowException.GetErrorMessages()));
             }
             catch
             {
