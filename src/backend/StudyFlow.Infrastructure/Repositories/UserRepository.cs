@@ -33,5 +33,12 @@ namespace StudyFlow.Infrastructure.Repositories
                 .AsNoTracking()
                 .FirstOrDefaultAsync(user => user.Email == email && user.Active);
         }
+
+        public async Task<bool> ExistActiveUserWithUserIdentifier(Guid userIdentifier)
+        {
+            return await _dbContext
+                .Users
+                .AnyAsync(user => user.UserIdentifier == userIdentifier && user.Active);
+        }
     }
 }

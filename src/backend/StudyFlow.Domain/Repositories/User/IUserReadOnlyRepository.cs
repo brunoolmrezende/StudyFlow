@@ -4,5 +4,6 @@
     {
         Task<bool> IsEmailRegisteredAndActive(string email);
         Task<Domain.Entities.User?> GetUserByEmail(string email);
+        Task<bool> ExistActiveUserWithUserIdentifier(Guid userIdentifier);
     }
 }
