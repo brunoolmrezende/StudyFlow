@@ -2,11 +2,10 @@
 using StudyFlow.Domain.Security.Token;
 using System.IdentityModel.Tokens.Jwt;
 using System.Security.Claims;
-using System.Text;
 
-namespace StudyFlow.Infrastructure.Security.Token
+namespace StudyFlow.Infrastructure.Security.Token.Generate
 {
-    public class AccessTokenGenerator : IAccessTokenGenerator
+    public class AccessTokenGenerator : JwtTokenHandler, IAccessTokenGenerator
     {
         private readonly int _expirationTimeMinutes;
         private readonly string _securityKey;
@@ -28,7 +27,7 @@ namespace StudyFlow.Infrastructure.Security.Token
             {
                 Subject = new ClaimsIdentity(claims),
                 Expires = DateTime.UtcNow.AddMinutes(_expirationTimeMinutes),
-                SigningCredentials = new SigningCredentials(SecurityKey(), SecurityAlgorithms.HmacSha256Signature)
+                SigningCredentials = new SigningCredentials(SecurityKey(_securityKey), SecurityAlgorithms.HmacSha256Signature)
             };
 
             var tokenHandler = new JwtSecurityTokenHandler();
@@ -36,13 +35,6 @@ namespace StudyFlow.Infrastructure.Security.Token
             var securityToken = tokenHandler.CreateToken(tokenDescriptor);
 
             return tokenHandler.WriteToken(securityToken);
-        }
-
-        private SymmetricSecurityKey SecurityKey()
-        {
-            var bytes = Encoding.UTF8.GetBytes(_securityKey);
-
-            return new SymmetricSecurityKey(bytes);
         }
     }
 }

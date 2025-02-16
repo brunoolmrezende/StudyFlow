@@ -10,7 +10,8 @@ using StudyFlow.Infrastructure.DataAccess;
 using StudyFlow.Infrastructure.Extensions;
 using StudyFlow.Infrastructure.Repositories;
 using StudyFlow.Infrastructure.Security.Cryptography;
-using StudyFlow.Infrastructure.Security.Token;
+using StudyFlow.Infrastructure.Security.Token.Generate;
+using StudyFlow.Infrastructure.Security.Token.Validate;
 using System.Reflection;
 
 namespace StudyFlow.Infrastructure
@@ -63,6 +64,7 @@ namespace StudyFlow.Infrastructure
             var signInKey = configuration.GetValue<string>("Settings:Jwt:SignInKey");
 
             services.AddScoped<IAccessTokenGenerator>(options => new AccessTokenGenerator(expirationTimeMinutes, signInKey!));
+            services.AddScoped<IAccessTokenValidator>(options => new AccessTokenValidator(signInKey!));
         }
 
         private static void AddFluentMigrator_MySql(this IServiceCollection services, IConfiguration configuration)
