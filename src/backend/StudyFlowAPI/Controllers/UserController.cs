@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using StudyFlow.API.Attribute;
+using StudyFlow.Application.UseCases.User.ChangePassword;
 using StudyFlow.Application.UseCases.User.GetProfile;
 using StudyFlow.Application.UseCases.User.Register;
 using StudyFlow.Application.UseCases.User.Update;
@@ -39,6 +40,19 @@ namespace StudyFlow.API.Controllers
         public async Task<IActionResult> Update(
             [FromServices] IUpdateUserUseCase useCase,
             [FromBody] RequestUpdateUserJson request)
+        {
+            await useCase.Execute(request);
+
+            return NoContent();
+        }
+
+        [HttpPut("change-password")]
+        [AuthenticatedUser]
+        [ProducesResponseType(StatusCodes.Status204NoContent)]
+        [ProducesResponseType(typeof(ResponseErrorJson), StatusCodes.Status400BadRequest)]
+        public async Task<IActionResult> ChangePassword(
+            [FromServices] IChangePasswordUseCase useCase,
+            [FromBody] RequestChangePasswordJson request)
         {
             await useCase.Execute(request);
 
