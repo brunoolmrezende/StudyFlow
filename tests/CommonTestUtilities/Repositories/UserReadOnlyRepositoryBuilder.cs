@@ -13,7 +13,7 @@ namespace CommonTestUtilities.Repositories
             _repository = new Mock<IUserReadOnlyRepository>();
         }
 
-        public void ExistActiveUserWithEmail(string email)
+        public void IsEmailRegisteredAndActive(string email)
         {
             _repository.Setup(repository => repository.IsEmailRegisteredAndActive(email)).ReturnsAsync(true);
         }

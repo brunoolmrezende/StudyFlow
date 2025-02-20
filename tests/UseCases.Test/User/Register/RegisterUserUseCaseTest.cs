@@ -66,7 +66,7 @@ namespace UseCases.Test.User.Register
 
             if (!string.IsNullOrWhiteSpace(email))
             {
-                readOnlyRepository.ExistActiveUserWithEmail(email);
+                readOnlyRepository.IsEmailRegisteredAndActive(email);
             }
 
             return new RegisterUserUseCase(mapper, encryption, readOnlyRepository.Build(), writeOnlyRepository, unitOfWork, accessTokenGenerator);
