@@ -2,6 +2,7 @@
 using StudyFlow.API.Attribute;
 using StudyFlow.Application.UseCases.User.GetProfile;
 using StudyFlow.Application.UseCases.User.Register;
+using StudyFlow.Application.UseCases.User.Update;
 using StudyFlow.Communication.Requests;
 using StudyFlow.Communication.Response;
 
@@ -29,6 +30,19 @@ namespace StudyFlow.API.Controllers
             var response = await useCase.Execute();
 
             return Ok(response);
+        }
+
+        [HttpPut]
+        [AuthenticatedUser]
+        [ProducesResponseType(StatusCodes.Status204NoContent)]
+        [ProducesResponseType(typeof(ResponseErrorJson), StatusCodes.Status400BadRequest)]
+        public async Task<IActionResult> Update(
+            [FromServices] IUpdateUserUseCase useCase,
+            [FromBody] RequestUpdateUserJson request)
+        {
+            await useCase.Execute(request);
+
+            return NoContent();
         }
     }
 }

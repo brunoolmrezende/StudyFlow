@@ -5,7 +5,7 @@ using StudyFlow.Infrastructure.DataAccess;
 
 namespace StudyFlow.Infrastructure.Repositories
 {
-    public class UserRepository : IUserReadOnlyRepository, IUserWriteOnlyRepository
+    public class UserRepository : IUserReadOnlyRepository, IUserWriteOnlyRepository, IUserUpdateOnlyRepository
     {
         private readonly StudyFlowDbContext _dbContext;
 
@@ -39,6 +39,18 @@ namespace StudyFlow.Infrastructure.Repositories
             return await _dbContext
                 .Users
                 .AnyAsync(user => user.UserIdentifier == userIdentifier && user.Active);
+        }
+
+        public async Task<User> GetById(long id)
+        {
+            return await _dbContext
+                .Users
+                .FirstAsync(user => user.Id == id);
+        }
+
+        public void Update(User user)
+        {
+            _dbContext.Users.Update(user);
         }
     }
 }
