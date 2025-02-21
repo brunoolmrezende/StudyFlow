@@ -12,7 +12,7 @@ namespace CommonTestUtilities.Security
             _mock = new Mock<IPasswordEncryption>();
 
             _mock.Setup(passwordEncrypter => passwordEncrypter.Encrypt(It.IsAny<string>())).Returns("!$%¨*sdabsad");
-        }
+        }  
 
         public PasswordEncryptionBuilder Verify(string? password)
         {

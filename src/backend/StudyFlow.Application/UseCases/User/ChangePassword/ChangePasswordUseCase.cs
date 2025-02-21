@@ -42,15 +42,15 @@ namespace StudyFlow.Application.UseCases.User.ChangePassword
             await _unitOfWork.Commit();
         }
 
-        private void Validate(RequestChangePasswordJson request, Domain.Entities.User user)
+        private void Validate(RequestChangePasswordJson request, Domain.Entities.User loggedUser)
         {
             var validator = new ChangePasswordValidator();
 
             var result = validator.Validate(request);
 
-            var currentHashPassword = _encryption.Encrypt(request.CurrentPassword);
+            var passwordMatch = _encryption.Decrypt(request.CurrentPassword, loggedUser.Password);
 
-            if (currentHashPassword != user.Password)
+            if (!passwordMatch)
             {
                 result.Errors.Add(new FluentValidation.Results.ValidationFailure("Password not matching.", ResourceMessagesException.PASSWORD_DIFFERENT_CURRENT_PASSWORD));
             }
