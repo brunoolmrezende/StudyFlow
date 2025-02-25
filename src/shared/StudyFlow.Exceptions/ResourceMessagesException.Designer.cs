@@ -142,6 +142,15 @@ namespace StudyFlow.Exceptions {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to The subject is already created..
+        /// </summary>
+        public static string SUBJECT_ALREADY_CREATED {
+            get {
+                return ResourceManager.GetString("SUBJECT_ALREADY_CREATED", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to The maximum number of allowed requests has been reached. Please wait before trying again..
         /// </summary>
         public static string TOO_MANY_REQUESTS {

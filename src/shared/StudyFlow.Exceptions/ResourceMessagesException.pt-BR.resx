@@ -144,6 +144,9 @@
   <data name="PASSWORD_LENGTH" xml:space="preserve">
     <value>A senha deve ter pelo menos 8 caracteres.</value>
   </data>
+  <data name="SUBJECT_ALREADY_CREATED" xml:space="preserve">
+    <value>A matéria já está criada.</value>
+  </data>
   <data name="TOO_MANY_REQUESTS" xml:space="preserve">
     <value>O número máximo de requisições permitidas foi atingido. Aguarde antes de tentar novamente.</value>
   </data>
