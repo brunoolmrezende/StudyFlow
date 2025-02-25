@@ -6,6 +6,7 @@ namespace StudyFlow.Infrastructure.DataAccess
     public class StudyFlowDbContext(DbContextOptions dbContextOptions) : DbContext(dbContextOptions)
     {
         public DbSet<User> Users { get; set; }
+        public DbSet<Subject> Subjects { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
