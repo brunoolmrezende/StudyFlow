@@ -1,6 +1,4 @@
-﻿using StudyFlow.Exceptions;
-using StudyFlow.Exceptions.ExceptionBase;
-using System.Net.Http.Headers;
+﻿using System.Net.Http.Headers;
 using System.Net.Http.Json;
 
 namespace WebApi.Test
@@ -14,9 +12,10 @@ namespace WebApi.Test
             _httpClient = factory.CreateClient();
         }
 
-        protected async Task<HttpResponseMessage> DoPost(string endpoint, object request, string culture = "en")
+        protected async Task<HttpResponseMessage> DoPost(string endpoint, object request, string token = "", string culture = "en")
         {
             ChangeRequestCulture(culture);
+            AuthorizeRequest(token);
 
             return await _httpClient.PostAsJsonAsync(endpoint, request);
         }
