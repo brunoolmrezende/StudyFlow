@@ -19,7 +19,17 @@ namespace StudyFlow.Infrastructure.Repositories
             await _dbContext.Subjects.AddAsync(subject);
         }
 
-        public async Task<bool> IsSubjectCreatedAndActive(string name, Domain.Entities.User loggedUser)
+        public async Task<IList<Subject>> GetAllSubjects(User loggedUser)
+        {
+            return await _dbContext
+                .Subjects
+                .AsNoTracking()
+                .Where(subject => subject.UserId == loggedUser.Id)
+                .OrderBy(subject => subject.Name)
+                .ToListAsync();
+        }
+
+        public async Task<bool> IsSubjectCreatedAndActive(string name, User loggedUser)
         {
            return await _dbContext
                 .Subjects
