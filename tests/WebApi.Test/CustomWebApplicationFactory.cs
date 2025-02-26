@@ -11,6 +11,7 @@ namespace WebApi.Test
     public class CustomWebApplicationFactory : WebApplicationFactory<Program>
     {
         private StudyFlow.Domain.Entities.User _user = default!;
+        private StudyFlow.Domain.Entities.Subject _subject = default!;
         private string _password = string.Empty;
 
         protected override void ConfigureWebHost(IWebHostBuilder builder)
@@ -55,11 +56,14 @@ namespace WebApi.Test
         {
             (_user, _password) = UserBuilder.Build();
 
+            _subject = SubjectBuilder.Build(_user);
+
             _user.Password = encrypter.Encrypt(_password);
 
             dbContext.Database.EnsureCreated();
 
             dbContext.Users.Add(_user);
+            dbContext.Subjects.Add(_subject);
 
             dbContext.SaveChanges();
         }
