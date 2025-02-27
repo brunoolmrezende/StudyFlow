@@ -13,7 +13,7 @@ namespace StudyFlow.API.Controllers
     {
         [HttpPost]
         [ProducesResponseType(typeof(ResponseCreatedSubjectJson), StatusCodes.Status201Created)]
-        [ProducesResponseType(typeof(ErrorOnValidationException), StatusCodes.Status400BadRequest)]
+        [ProducesResponseType(typeof(ResponseErrorJson), StatusCodes.Status400BadRequest)]
         public async Task<IActionResult> Create(
             [FromServices] ICreateSubjectUseCase useCase,
             [FromBody] RequestCreateSubjectJson request)
@@ -24,7 +24,7 @@ namespace StudyFlow.API.Controllers
         }
 
         [HttpGet]
-        [ProducesResponseType(typeof(ResponseCreatedSubjectJson), StatusCodes.Status200OK)]
+        [ProducesResponseType(typeof(ResponseSubjectsJson), StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status204NoContent)]
         public async Task<IActionResult> GetAll(
             [FromServices] IGetAllSubjectsUseCase useCase)

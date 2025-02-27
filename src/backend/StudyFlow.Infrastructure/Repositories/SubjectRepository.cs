@@ -24,7 +24,7 @@ namespace StudyFlow.Infrastructure.Repositories
             return await _dbContext
                 .Subjects
                 .AsNoTracking()
-                .Where(subject => subject.UserId == loggedUser.Id)
+                .Where(subject => subject.UserId == loggedUser.Id && subject.Active)
                 .OrderBy(subject => subject.Name)
                 .ToListAsync();
         }
