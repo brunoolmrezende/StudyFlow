@@ -10,6 +10,7 @@ using StudyFlow.Application.UseCases.User.Login.DoLogin;
 using StudyFlow.Application.UseCases.User.Register;
 using StudyFlow.Application.UseCases.User.Update;
 using StudyFlow.Application.UseCases.Subject.GetAll;
+using StudyFlow.Application.UseCases.Subject.GetById;
 
 namespace StudyFlow.Application
 {
@@ -32,6 +33,7 @@ namespace StudyFlow.Application
 
             services.AddScoped<ICreateSubjectUseCase, CreateSubjectUseCase>();
             services.AddScoped<IGetAllSubjectsUseCase, GetAllSubjectsUseCase>();
+            services.AddScoped<IGetSubjectByIdUseCase, GetSubjectByIdUseCase>();
         }
 
         private static void AddAutoMapper(this IServiceCollection services, IConfiguration configuration)

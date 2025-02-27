@@ -1,10 +1,11 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using StudyFlow.API.Attribute;
+using StudyFlow.API.Binders;
 using StudyFlow.Application.UseCases.Subject.Create;
 using StudyFlow.Application.UseCases.Subject.GetAll;
+using StudyFlow.Application.UseCases.Subject.GetById;
 using StudyFlow.Communication.Requests;
 using StudyFlow.Communication.Response;
-using StudyFlow.Exceptions.ExceptionBase;
 
 namespace StudyFlow.API.Controllers
 {
@@ -37,6 +38,18 @@ namespace StudyFlow.API.Controllers
             }
 
             return NoContent();
+        }
+
+        [HttpGet("{id}")]
+        [ProducesResponseType(typeof(ResponseSubjectJson), StatusCodes.Status200OK)]
+        [ProducesResponseType(typeof(ResponseErrorJson), StatusCodes.Status404NotFound)]
+        public async Task<IActionResult> GetById(
+            [FromServices] IGetSubjectByIdUseCase useCase,
+            [FromRoute][ModelBinder(typeof(StudyFlowBinder))] long id)
+        {
+            var response = await useCase.Execute(id);
+
+            return Ok(response);
         }
     }
 }

@@ -29,6 +29,14 @@ namespace StudyFlow.Infrastructure.Repositories
                 .ToListAsync();
         }
 
+        public async Task<Subject?> GetSubjectById(long id, User loggedUser)
+        {
+            return await _dbContext
+                .Subjects
+                .AsNoTracking()
+                .FirstOrDefaultAsync(subject => subject.Id == id && subject.UserId == loggedUser.Id && subject.Active);
+        }
+
         public async Task<bool> IsSubjectCreatedAndActive(string name, User loggedUser)
         {
            return await _dbContext

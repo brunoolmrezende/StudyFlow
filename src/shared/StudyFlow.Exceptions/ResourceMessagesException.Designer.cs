@@ -151,6 +151,15 @@ namespace StudyFlow.Exceptions {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to The subject could not be found..
+        /// </summary>
+        public static string SUBJECT_NOT_FOUND {
+            get {
+                return ResourceManager.GetString("SUBJECT_NOT_FOUND", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to The maximum number of allowed requests has been reached. Please wait before trying again..
         /// </summary>
         public static string TOO_MANY_REQUESTS {

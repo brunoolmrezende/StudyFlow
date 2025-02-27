@@ -147,6 +147,9 @@
   <data name="SUBJECT_ALREADY_CREATED" xml:space="preserve">
     <value>A matéria já está criada.</value>
   </data>
+  <data name="SUBJECT_NOT_FOUND" xml:space="preserve">
+    <value>A matéria não foi encontrada.</value>
+  </data>
   <data name="TOO_MANY_REQUESTS" xml:space="preserve">
     <value>O número máximo de requisições permitidas foi atingido. Aguarde antes de tentar novamente.</value>
   </data>
