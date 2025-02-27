@@ -30,6 +30,13 @@ namespace CommonTestUtilities.Repositories
             return this;
         }
 
+        public SubjectReadOnlyRepositoryBuilder GetSubjectById(User user, Subject subject)
+        {
+            _mock.Setup(repository => repository.GetSubjectById(subject.Id, user)).ReturnsAsync(subject);
+
+            return this;
+        }
+
         public ISubjectReadOnlyRepository Build() => _mock.Object;
     }
 }

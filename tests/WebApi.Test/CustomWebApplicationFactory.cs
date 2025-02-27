@@ -1,4 +1,5 @@
 ﻿using CommonTestUtilities.Entities;
+using CommonTestUtilities.IdEncrypter;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Mvc.Testing;
 using Microsoft.EntityFrameworkCore;
@@ -44,13 +45,15 @@ namespace WebApi.Test
 
                     StartDatabase(database, encrypter);
                 });
-    
         }
 
         public string GetEmail() => _user.Email;
         public string GetPassword() => _password;
         public string GetUserName() => _user.Name;
         public Guid GetUserIdentifier() => _user.UserIdentifier;
+
+        public string GetSubjectId() => IdEncrypterBuilder.Build().Encode(_subject.Id);
+        public string GetSubjectName() => _subject.Name;
 
         private void StartDatabase(StudyFlowDbContext dbContext, IPasswordEncryption encrypter)
         {
