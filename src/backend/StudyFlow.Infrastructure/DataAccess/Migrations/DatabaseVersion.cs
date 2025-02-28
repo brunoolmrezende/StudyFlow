@@ -4,5 +4,6 @@
     {
         public const int TABLE_USER = 1;
         public const int TABLE_SUBJECT = 2;
+        public const int TABLE_TOPIC = 3;
     }
 }

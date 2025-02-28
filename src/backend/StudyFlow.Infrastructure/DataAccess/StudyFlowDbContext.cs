@@ -7,6 +7,7 @@ namespace StudyFlow.Infrastructure.DataAccess
     {
         public DbSet<User> Users { get; set; }
         public DbSet<Subject> Subjects { get; set; }
+        public DbSet<Topic> Topics { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {

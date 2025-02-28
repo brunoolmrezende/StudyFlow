@@ -10,7 +10,8 @@ namespace StudyFlow.Infrastructure.DataAccess.Migrations.Versions
             return Create.Table(tableName)
                 .WithColumn("Id").AsInt64().PrimaryKey().Identity()
                 .WithColumn("Active").AsBoolean().NotNullable()
-                .WithColumn("CreatedAt").AsDateTime().NotNullable();
+                .WithColumn("CreatedAt").AsDateTime().NotNullable()
+                .WithColumn("UpdatedAt").AsDateTime().NotNullable();
         }
     }
 }
