@@ -61,6 +61,15 @@ namespace StudyFlow.Exceptions {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to The active status is required and must be either true or false..
+        /// </summary>
+        public static string ACTIVE_STATUS_INVALID {
+            get {
+                return ResourceManager.GetString("ACTIVE_STATUS_INVALID", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to The e-mail is already registered..
         /// </summary>
         public static string EMAIL_ALREADY_REGISTERED {

@@ -4,6 +4,7 @@ using StudyFlow.API.Binders;
 using StudyFlow.Application.UseCases.Subject.Create;
 using StudyFlow.Application.UseCases.Subject.GetAll;
 using StudyFlow.Application.UseCases.Subject.GetById;
+using StudyFlow.Application.UseCases.Subject.Update;
 using StudyFlow.Communication.Requests;
 using StudyFlow.Communication.Response;
 
@@ -51,5 +52,19 @@ namespace StudyFlow.API.Controllers
 
             return Ok(response);
         }
+
+        [HttpPut("{id}")]
+        [ProducesResponseType(StatusCodes.Status204NoContent)]
+        [ProducesResponseType(typeof(ResponseErrorJson), StatusCodes.Status404NotFound)]
+        public async Task<IActionResult> Update(
+            [FromServices] IUpdateSubjectUseCase useCase,
+            [FromRoute][ModelBinder(typeof(StudyFlowBinder))] long id,
+            [FromBody] RequestUpdateSubjectJson request)
+        {
+            await useCase.Execute(id, request);
+
+            return NoContent();
+        }
+
     }
 }

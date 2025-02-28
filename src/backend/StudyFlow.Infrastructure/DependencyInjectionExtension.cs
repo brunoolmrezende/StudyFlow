@@ -57,6 +57,7 @@ namespace StudyFlow.Infrastructure
 
             services.AddScoped<ISubjectWriteOnlyRepository, SubjectRepository>();
             services.AddScoped<ISubjectReadOnlyRepository, SubjectRepository>();
+            services.AddScoped<ISubjectUpdateOnlyRepository, SubjectRepository>();
 
             services.AddScoped<IUnitOfWork, UnitOfWork>();
         }

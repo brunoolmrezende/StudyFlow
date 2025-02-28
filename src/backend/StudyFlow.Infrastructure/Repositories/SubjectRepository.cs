@@ -5,7 +5,7 @@ using StudyFlow.Infrastructure.DataAccess;
 
 namespace StudyFlow.Infrastructure.Repositories
 {
-    public class SubjectRepository : ISubjectWriteOnlyRepository, ISubjectReadOnlyRepository
+    public class SubjectRepository : ISubjectWriteOnlyRepository, ISubjectReadOnlyRepository, ISubjectUpdateOnlyRepository
     {
         private readonly StudyFlowDbContext _dbContext;
 
@@ -29,7 +29,7 @@ namespace StudyFlow.Infrastructure.Repositories
                 .ToListAsync();
         }
 
-        public async Task<Subject?> GetSubjectById(long id, User loggedUser)
+        async Task<Subject?> ISubjectReadOnlyRepository.GetSubjectById(long id, User loggedUser)
         {
             return await _dbContext
                 .Subjects
@@ -42,6 +42,18 @@ namespace StudyFlow.Infrastructure.Repositories
            return await _dbContext
                 .Subjects
                 .AnyAsync(subject => subject.Name.ToLower() == name.ToLower() && subject.UserId == loggedUser.Id && subject.Active);
+        }
+
+        async Task<Subject?> ISubjectUpdateOnlyRepository.GetSubjectById(long id, User loggedUser)
+        {
+            return await _dbContext
+                .Subjects
+                .FirstOrDefaultAsync(subject => subject.Id == id && subject.UserId == loggedUser.Id);
+        }
+
+        public void Update(Subject subject)
+        {
+            _dbContext.Subjects.Update(subject);
         }
     }
 }
