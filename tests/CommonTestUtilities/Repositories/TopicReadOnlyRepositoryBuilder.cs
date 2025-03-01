@@ -1,0 +1,28 @@
+﻿using Moq;
+using StudyFlow.Domain.Entities;
+using StudyFlow.Domain.Repositories.Topic;
+
+namespace CommonTestUtilities.Repositories
+{
+    public class TopicReadOnlyRepositoryBuilder
+    {
+        private readonly Mock<ITopicReadOnlyRepository> _mock;
+
+        public TopicReadOnlyRepositoryBuilder()
+        {
+            _mock = new Mock<ITopicReadOnlyRepository>();
+        }
+
+        public TopicReadOnlyRepositoryBuilder IsTopicCreatedAndActive(User user, string? name = null)
+        {
+            if (!string.IsNullOrWhiteSpace(name))
+            {
+                _mock.Setup(x => x.IsTopicCreatedAndActive(name, user)).ReturnsAsync(true);
+            }
+
+            return this;
+        }
+
+        public ITopicReadOnlyRepository Build() => _mock.Object;
+    }
+}
