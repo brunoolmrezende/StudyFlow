@@ -38,6 +38,7 @@ namespace StudyFlow.Application.UseCases.Subject.Update
 
             subject.Name = request.Name;
             subject.Active = (bool)request.Active!;
+            subject.UpdatedAt = DateTime.UtcNow;
 
             _updateOnlyRepository.Update(subject);
 
