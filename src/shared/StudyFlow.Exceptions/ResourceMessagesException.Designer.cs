@@ -70,6 +70,15 @@ namespace StudyFlow.Exceptions {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to The description must be at most 255 characters long..
+        /// </summary>
+        public static string DESCRIPTION_MAX_LENGTH {
+            get {
+                return ResourceManager.GetString("DESCRIPTION_MAX_LENGTH", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to The e-mail is already registered..
         /// </summary>
         public static string EMAIL_ALREADY_REGISTERED {
@@ -124,6 +133,15 @@ namespace StudyFlow.Exceptions {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to The name must be at most 255 characters long..
+        /// </summary>
+        public static string NAME_MAX_LENGTH {
+            get {
+                return ResourceManager.GetString("NAME_MAX_LENGTH", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Token not provided..
         /// </summary>
         public static string NO_TOKEN {
@@ -160,6 +178,15 @@ namespace StudyFlow.Exceptions {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to The subject id cannot be empty..
+        /// </summary>
+        public static string SUBJECT_ID_EMPTY {
+            get {
+                return ResourceManager.GetString("SUBJECT_ID_EMPTY", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to The subject could not be found..
         /// </summary>
         public static string SUBJECT_NOT_FOUND {
@@ -174,6 +201,15 @@ namespace StudyFlow.Exceptions {
         public static string TOO_MANY_REQUESTS {
             get {
                 return ResourceManager.GetString("TOO_MANY_REQUESTS", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to The topic is already created..
+        /// </summary>
+        public static string TOPIC_ALREADY_CREATED {
+            get {
+                return ResourceManager.GetString("TOPIC_ALREADY_CREATED", resourceCulture);
             }
         }
         

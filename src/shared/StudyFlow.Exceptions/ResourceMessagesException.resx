@@ -120,6 +120,9 @@
   <data name="ACTIVE_STATUS_INVALID" xml:space="preserve">
     <value>The active status is required and must be either true or false.</value>
   </data>
+  <data name="DESCRIPTION_MAX_LENGTH" xml:space="preserve">
+    <value>The description must be at most 255 characters long.</value>
+  </data>
   <data name="EMAIL_ALREADY_REGISTERED" xml:space="preserve">
     <value>The e-mail is already registered.</value>
   </data>
@@ -138,6 +141,9 @@
   <data name="NAME_EMPTY" xml:space="preserve">
     <value>The name cannot be empty.</value>
   </data>
+  <data name="NAME_MAX_LENGTH" xml:space="preserve">
+    <value>The name must be at most 255 characters long.</value>
+  </data>
   <data name="NO_TOKEN" xml:space="preserve">
     <value>Token not provided.</value>
   </data>
@@ -150,6 +156,9 @@
   <data name="SUBJECT_ALREADY_CREATED" xml:space="preserve">
     <value>The subject is already created.</value>
   </data>
+  <data name="TOPIC_ALREADY_CREATED" xml:space="preserve">
+    <value>The topic is already created.</value>
+  </data>
   <data name="SUBJECT_NOT_FOUND" xml:space="preserve">
     <value>The subject could not be found.</value>
   </data>
@@ -161,5 +170,8 @@
   </data>
   <data name="USER_WITHOUT_PERMISSION_ACCESS_RESOURCE" xml:space="preserve">
     <value>User does not have permission to access this resource.</value>
+  </data>
+  <data name="SUBJECT_ID_EMPTY" xml:space="preserve">
+    <value>The subject id cannot be empty.</value>
   </data>
 </root>
