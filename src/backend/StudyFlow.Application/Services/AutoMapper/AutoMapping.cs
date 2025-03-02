@@ -44,6 +44,9 @@ namespace StudyFlow.Application.Services.AutoMapper
             CreateMap<Domain.Entities.Topic, ResponseCreatedTopicJson>()
                 .ForMember(dest => dest.Id, opt => opt.MapFrom(source => _idEncoder.Encode(source.Id)));
 
+            CreateMap<Domain.Entities.Topic, ResponseShortTopicJson>()
+                .ForMember(dest => dest.Id, opt => opt.MapFrom(source => _idEncoder.Encode(source.Id)));
+
         }
     }
 }

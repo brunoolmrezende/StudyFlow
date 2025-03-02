@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using StudyFlow.API.Attribute;
-using StudyFlow.Application.UseCases.Topic;
+using StudyFlow.Application.UseCases.Topic.Create;
+using StudyFlow.Application.UseCases.Topic.GetAll;
 using StudyFlow.Communication.Requests;
 using StudyFlow.Communication.Response;
 
@@ -20,5 +21,22 @@ namespace StudyFlow.API.Controllers
 
             return Created(string.Empty, response);
         }
+
+        [HttpGet]
+        [ProducesResponseType(typeof(ResponseTopicsJson), StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status204NoContent)]
+        public async Task<IActionResult> GetAll(
+            [FromServices] IGetAllTopicsUseCase useCase,
+            [FromQuery] bool? active = true)
+        {
+            var response = await useCase.Execute(active);
+
+            if (response.Topics.Any())
+            {
+                return Ok(response);
+            }
+
+            return NoContent();
+        }   
     }
 }
