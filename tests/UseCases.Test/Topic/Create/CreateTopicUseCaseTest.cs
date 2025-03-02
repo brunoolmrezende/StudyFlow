@@ -5,7 +5,7 @@ using CommonTestUtilities.LoggedUser;
 using CommonTestUtilities.Repositories;
 using CommonTestUtilities.Requests;
 using FluentAssertions;
-using StudyFlow.Application.UseCases.Topic;
+using StudyFlow.Application.UseCases.Topic.Create;
 using StudyFlow.Exceptions;
 using StudyFlow.Exceptions.ExceptionBase;
 

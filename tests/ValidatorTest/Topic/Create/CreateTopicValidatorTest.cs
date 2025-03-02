@@ -2,6 +2,7 @@
 using CommonTestUtilities.Requests;
 using FluentAssertions;
 using StudyFlow.Application.UseCases.Topic;
+using StudyFlow.Application.UseCases.Topic.Create;
 using StudyFlow.Exceptions;
 
 namespace Validators.Test.Topic.Create

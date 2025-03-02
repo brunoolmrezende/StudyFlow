@@ -13,6 +13,7 @@ namespace WebApi.Test
     {
         private StudyFlow.Domain.Entities.User _user = default!;
         private StudyFlow.Domain.Entities.Subject _subject = default!;
+        private StudyFlow.Domain.Entities.Topic _topic = default!;
         private string _password = string.Empty;
 
         protected override void ConfigureWebHost(IWebHostBuilder builder)
@@ -61,12 +62,15 @@ namespace WebApi.Test
 
             _subject = SubjectBuilder.Build(_user);
 
+            _topic = TopicBuilder.Build(_user, _subject.Id);
+
             _user.Password = encrypter.Encrypt(_password);
 
             dbContext.Database.EnsureCreated();
 
             dbContext.Users.Add(_user);
             dbContext.Subjects.Add(_subject);
+            dbContext.Topics.Add(_topic);
 
             dbContext.SaveChanges();
         }

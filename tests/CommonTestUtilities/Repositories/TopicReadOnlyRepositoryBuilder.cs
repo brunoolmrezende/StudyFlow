@@ -23,6 +23,13 @@ namespace CommonTestUtilities.Repositories
             return this;
         }
 
+        public TopicReadOnlyRepositoryBuilder GetAllTopics(User user, IList<Topic> topics)
+        {
+            _mock.Setup(x => x.GetAllTopics(user, null)).ReturnsAsync(topics);
+
+            return this;
+        }
+
         public ITopicReadOnlyRepository Build() => _mock.Object;
     }
 }
