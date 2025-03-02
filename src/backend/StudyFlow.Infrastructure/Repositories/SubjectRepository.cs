@@ -41,14 +41,14 @@ namespace StudyFlow.Infrastructure.Repositories
             return await _dbContext
                 .Subjects
                 .AsNoTracking()
-                .FirstOrDefaultAsync(subject => subject.Id == id && subject.UserId == loggedUser.Id && subject.Active);
+                .FirstOrDefaultAsync(subject => subject.Id == id && subject.UserId == loggedUser.Id);
         }
 
-        public async Task<bool> IsSubjectCreatedAndActive(string name, User loggedUser)
+        public async Task<bool> IsSubjectAlreadyCreated(string name, User loggedUser)
         {
            return await _dbContext
                 .Subjects
-                .AnyAsync(subject => subject.Name.ToLower() == name.ToLower() && subject.UserId == loggedUser.Id && subject.Active);
+                .AnyAsync(subject => subject.Name.ToLower() == name.ToLower() && subject.UserId == loggedUser.Id);
         }
 
         async Task<Subject?> ISubjectUpdateOnlyRepository.GetSubjectById(long id, User loggedUser)

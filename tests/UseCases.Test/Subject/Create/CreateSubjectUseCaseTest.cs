@@ -71,7 +71,7 @@ namespace UseCases.Test.Subject.Create
 
             if (subjectName is not null)
             {
-                readOnlyRepository.IsSubjectCreatedAndActive(user, subjectName);
+                readOnlyRepository.IsSubjectAlreadyCreated(user, subjectName);
             }
 
             return new CreateSubjectUseCase(writeOnlyRepository, readOnlyRepository.Build(), unitOfWork, loggedUser, mapper);

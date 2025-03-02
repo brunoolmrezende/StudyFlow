@@ -13,11 +13,11 @@ namespace CommonTestUtilities.Repositories
             _mock = new Mock<ISubjectReadOnlyRepository>();
         }
 
-        public SubjectReadOnlyRepositoryBuilder IsSubjectCreatedAndActive(User user, string? name = null)
+        public SubjectReadOnlyRepositoryBuilder IsSubjectAlreadyCreated(User user, string? name = null)
         {
             if (!string.IsNullOrWhiteSpace(name))
             {
-                _mock.Setup(repository => repository.IsSubjectCreatedAndActive(name, user)).ReturnsAsync(true);
+                _mock.Setup(repository => repository.IsSubjectAlreadyCreated(name, user)).ReturnsAsync(true);
             }
 
             return this;

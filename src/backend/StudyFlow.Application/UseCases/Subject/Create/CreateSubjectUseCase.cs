@@ -54,7 +54,7 @@ namespace StudyFlow.Application.UseCases.Subject.Create
 
             var result = validator.Validate(request);
 
-            var subjectAlreadyCreated = await _readOnlyRepository.IsSubjectCreatedAndActive(request.Name, loggedUser);
+            var subjectAlreadyCreated = await _readOnlyRepository.IsSubjectAlreadyCreated(request.Name, loggedUser);
 
             if (subjectAlreadyCreated)
             {

@@ -2,7 +2,7 @@
 {
     public interface ISubjectReadOnlyRepository
     {
-        Task<bool> IsSubjectCreatedAndActive(string name, Entities.User loggedUser);
+        Task<bool> IsSubjectAlreadyCreated(string name, Entities.User loggedUser);
         Task<IList<Entities.Subject>> GetAllSubjects(Entities.User loggedUser, bool? active);
         Task<Entities.Subject?> GetSubjectById(long id, Entities.User loggedUser);
     }
