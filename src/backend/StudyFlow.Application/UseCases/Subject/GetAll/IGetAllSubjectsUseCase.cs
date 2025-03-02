@@ -4,6 +4,6 @@ namespace StudyFlow.Application.UseCases.Subject.GetAll
 {
     public interface IGetAllSubjectsUseCase
     {
-        Task<ResponseSubjectsJson> Execute();
+        Task<ResponseSubjectsJson> Execute(bool? active);
     }
 }

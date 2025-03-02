@@ -21,11 +21,11 @@ namespace StudyFlow.Application.UseCases.Subject.GetAll
             _mapper = mapper;
         }
 
-        public async Task<ResponseSubjectsJson> Execute()
+        public async Task<ResponseSubjectsJson> Execute(bool? active)
         {
             var loggedUser = await _loggedUser.GetLoggedUser();
 
-            var subjects = await _readOnlyRepository.GetAllSubjects(loggedUser);
+            var subjects = await _readOnlyRepository.GetAllSubjects(loggedUser, active);
 
             return new ResponseSubjectsJson
             {

@@ -25,7 +25,7 @@ namespace CommonTestUtilities.Repositories
 
         public SubjectReadOnlyRepositoryBuilder GetAllSubjects(User user, IList<Subject> subjects)
         {
-           _mock.Setup(repository => repository.GetAllSubjects(user)).ReturnsAsync(subjects);
+           _mock.Setup(repository => repository.GetAllSubjects(user, null)).ReturnsAsync(subjects);
 
             return this;
         }

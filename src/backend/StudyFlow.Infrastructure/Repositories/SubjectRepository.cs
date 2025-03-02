@@ -19,12 +19,19 @@ namespace StudyFlow.Infrastructure.Repositories
             await _dbContext.Subjects.AddAsync(subject);
         }
 
-        public async Task<IList<Subject>> GetAllSubjects(User loggedUser)
+        public async Task<IList<Subject>> GetAllSubjects(User loggedUser, bool? active)
         {
-            return await _dbContext
+            var query = _dbContext
                 .Subjects
                 .AsNoTracking()
-                .Where(subject => subject.UserId == loggedUser.Id && subject.Active)
+                .Where(subject => subject.UserId == loggedUser.Id);
+
+            if (active.HasValue)
+            {
+                query = query.Where(subject => subject.Active == active);
+            }
+                
+            return await query
                 .OrderBy(subject => subject.Name)
                 .ToListAsync();
         }

@@ -29,9 +29,10 @@ namespace StudyFlow.API.Controllers
         [ProducesResponseType(typeof(ResponseSubjectsJson), StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status204NoContent)]
         public async Task<IActionResult> GetAll(
-            [FromServices] IGetAllSubjectsUseCase useCase)
+            [FromServices] IGetAllSubjectsUseCase useCase,
+            [FromQuery] bool? active = true)
         {
-            var response = await useCase.Execute();
+            var response = await useCase.Execute(active);
 
             if (response.Subjects.Any())
             {

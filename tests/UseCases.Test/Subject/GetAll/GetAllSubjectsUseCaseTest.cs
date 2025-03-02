@@ -18,7 +18,7 @@ namespace UseCases.Test.Subject.GetAll
 
             var useCase = CreateUseCase(user, subjects);
 
-            var result = await useCase.Execute();
+            var result = await useCase.Execute(null);
 
             result.Should().NotBeNull();
             result.Subjects.Should()
