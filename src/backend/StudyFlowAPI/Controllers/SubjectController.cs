@@ -30,7 +30,7 @@ namespace StudyFlow.API.Controllers
         [ProducesResponseType(StatusCodes.Status204NoContent)]
         public async Task<IActionResult> GetAll(
             [FromServices] IGetAllSubjectsUseCase useCase,
-            [FromQuery] bool? active = true)
+            [FromQuery] bool? active)
         {
             var response = await useCase.Execute(active);
 
