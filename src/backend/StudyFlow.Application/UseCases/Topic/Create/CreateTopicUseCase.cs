@@ -10,7 +10,7 @@ using StudyFlow.Domain.Repositories;
 using StudyFlow.Domain.Repositories.Subject;
 using Sqids;
 
-namespace StudyFlow.Application.UseCases.Topic
+namespace StudyFlow.Application.UseCases.Topic.Create
 {   
     public class CreateTopicUseCase : ICreateTopicUseCase
     {

@@ -2,7 +2,7 @@
 using StudyFlow.Communication.Requests;
 using StudyFlow.Exceptions;
 
-namespace StudyFlow.Application.UseCases.Topic
+namespace StudyFlow.Application.UseCases.Topic.Create
 {
     public class CreateTopicValidator : AbstractValidator<RequestCreateTopicJson>
     {
