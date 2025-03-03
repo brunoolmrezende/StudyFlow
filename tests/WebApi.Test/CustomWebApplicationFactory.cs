@@ -56,6 +56,9 @@ namespace WebApi.Test
         public string GetSubjectId() => IdEncrypterBuilder.Build().Encode(_subject.Id);
         public string GetSubjectName() => _subject.Name;
 
+        public string GetTopicId() => IdEncrypterBuilder.Build().Encode(_topic.Id);
+        public string GetTopicName() => _topic.Name;
+
         private void StartDatabase(StudyFlowDbContext dbContext, IPasswordEncryption encrypter)
         {
             (_user, _password) = UserBuilder.Build();
