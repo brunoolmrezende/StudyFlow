@@ -89,7 +89,7 @@ namespace UseCases.Test.Topic.Create
 
             if (!string.IsNullOrWhiteSpace(topicName))
             {
-                readOnlyRepository.IsTopicCreatedAndActive(user, topicName);
+                readOnlyRepository.IsTopicAlreadyCreated(user, topicName);
             }
 
             return new CreateTopicUseCase(

@@ -14,6 +14,7 @@ namespace WebApi.Test
         private StudyFlow.Domain.Entities.User _user = default!;
         private StudyFlow.Domain.Entities.Subject _subject = default!;
         private StudyFlow.Domain.Entities.Topic _topic = default!;
+        private StudyFlow.Domain.Entities.Topic _topic2 = default!;
         private string _password = string.Empty;
 
         protected override void ConfigureWebHost(IWebHostBuilder builder)
@@ -58,6 +59,7 @@ namespace WebApi.Test
 
         public string GetTopicId() => IdEncrypterBuilder.Build().Encode(_topic.Id);
         public string GetTopicName() => _topic.Name;
+        public string GetSecondTopicName() => _topic2.Name;
 
         private void StartDatabase(StudyFlowDbContext dbContext, IPasswordEncryption encrypter)
         {
@@ -67,6 +69,9 @@ namespace WebApi.Test
 
             _topic = TopicBuilder.Build(_user, _subject.Id);
 
+            _topic2 = TopicBuilder.Build(_user, _subject.Id);
+            _topic2.Id = 2;
+
             _user.Password = encrypter.Encrypt(_password);
 
             dbContext.Database.EnsureCreated();
@@ -74,6 +79,7 @@ namespace WebApi.Test
             dbContext.Users.Add(_user);
             dbContext.Subjects.Add(_subject);
             dbContext.Topics.Add(_topic);
+            dbContext.Topics.Add(_topic2);
 
             dbContext.SaveChanges();
         }

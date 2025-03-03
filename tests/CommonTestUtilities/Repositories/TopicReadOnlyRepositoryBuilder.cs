@@ -13,11 +13,11 @@ namespace CommonTestUtilities.Repositories
             _mock = new Mock<ITopicReadOnlyRepository>();
         }
 
-        public TopicReadOnlyRepositoryBuilder IsTopicCreatedAndActive(User user, string? name = null)
+        public TopicReadOnlyRepositoryBuilder IsTopicAlreadyCreated(User user, string? name = null)
         {
             if (!string.IsNullOrWhiteSpace(name))
             {
-                _mock.Setup(x => x.IsTopicCreatedAndActive(name, user)).ReturnsAsync(true);
+                _mock.Setup(x => x.IsTopicAlreadyCreated(It.Is<string>(n => n.ToLower() == name.ToLower()), user, It.IsAny<long?>())).ReturnsAsync(true);
             }
 
             return this;
