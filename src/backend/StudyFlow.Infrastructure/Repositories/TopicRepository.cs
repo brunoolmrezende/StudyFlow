@@ -5,7 +5,7 @@ using StudyFlow.Infrastructure.DataAccess;
 
 namespace StudyFlow.Infrastructure.Repositories
 {
-    public class TopicRepository : ITopicWriteOnlyRepository, ITopicReadOnlyRepository
+    public class TopicRepository : ITopicWriteOnlyRepository, ITopicReadOnlyRepository, ITopicUpdateOnlyRepository
     {
         private readonly StudyFlowDbContext _dbContext;
 
@@ -36,7 +36,7 @@ namespace StudyFlow.Infrastructure.Repositories
                 .ToListAsync();
         }
 
-        public async Task<Topic?> GetTopicById(long id, User loggedUser)
+        async Task<Topic?> ITopicReadOnlyRepository.GetTopicById(long id, User loggedUser)
         {
             return await _dbContext
                 .Topics
@@ -44,11 +44,25 @@ namespace StudyFlow.Infrastructure.Repositories
                 .FirstOrDefaultAsync(topic => topic.Id == id && topic.UserId == loggedUser.Id);
         }
 
-        public async Task<bool> IsTopicCreatedAndActive(string name, User loggedUser)
+        public async Task<bool> IsTopicAlreadyCreated(string name, User loggedUser, long? topicId = null)
         {
             return await _dbContext
                 .Topics
-                .AnyAsync(topic => topic.Name.ToLower() == name.ToLower() && topic.UserId == loggedUser.Id && topic.Active);
+                .AnyAsync(topic => topic.Name.ToLower() == name.ToLower() 
+                                   && topic.UserId == loggedUser.Id 
+                                   && (!topicId.HasValue || topic.Id != topicId));
+        }
+
+        public void Update(Topic topic)
+        {
+            _dbContext.Topics.Update(topic);
+        }
+
+        public async Task<Topic?> GetTopicById(long id, User loggedUser)
+        {
+            return await _dbContext
+                .Topics
+                .FirstOrDefaultAsync(topic => topic.Id == id && topic.UserId == loggedUser.Id);
         }
     }
 }

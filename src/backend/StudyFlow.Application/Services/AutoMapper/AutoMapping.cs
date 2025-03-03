@@ -26,6 +26,13 @@ namespace StudyFlow.Application.Services.AutoMapper
 
             CreateMap<RequestCreateTopicJson, Domain.Entities.Topic>()
                 .ForMember(dest => dest.SubjectId, opt => opt.MapFrom(source => _idEncoder.Decode(source.SubjectId).FirstOrDefault()));
+
+            CreateMap<RequestUpdateTopicJson, Domain.Entities.Topic>()
+                .ForMember(dest => dest.SubjectId, opt => opt.MapFrom(source => _idEncoder.Decode(source.SubjectId).FirstOrDefault()))
+                .ForMember(dest => dest.Description, opt => opt.MapFrom(source => source.Description != null ? source.Description.Trim() : null))
+                .ForMember(dest => dest.Name, opt => opt.MapFrom(source => source.Name))
+                .ForMember(dest => dest.Active, opt => opt.MapFrom(source => source.Active))
+                .ForMember(dest => dest.UpdatedAt, opt => opt.MapFrom(_ => DateTime.UtcNow));
         }
 
         private void DomainToResponse()

@@ -15,6 +15,7 @@ using StudyFlow.Application.UseCases.Subject.Update;
 using StudyFlow.Application.UseCases.Topic.Create;
 using StudyFlow.Application.UseCases.Topic.GetAll;
 using StudyFlow.Application.UseCases.Topic.GetById;
+using StudyFlow.Application.UseCases.Topic.Update;
 
 namespace StudyFlow.Application
 {
@@ -43,6 +44,7 @@ namespace StudyFlow.Application
             services.AddScoped<ICreateTopicUseCase, CreateTopicUseCase>();
             services.AddScoped<IGetAllTopicsUseCase, GetAllTopicsUseCase>();
             services.AddScoped<IGetTopicByIdUseCase, GetTopicByIdUseCase>();
+            services.AddScoped<IUpdateTopicUseCase, UpdateTopicUseCase>();
         }
 
         private static void AddAutoMapper(this IServiceCollection services, IConfiguration configuration)

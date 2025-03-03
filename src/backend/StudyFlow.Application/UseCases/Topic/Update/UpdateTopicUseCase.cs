@@ -1,69 +1,71 @@
-﻿using StudyFlow.Application.UseCases.Subject.Create;
+﻿using AutoMapper;
+using Sqids;
 using StudyFlow.Communication.Requests;
-using StudyFlow.Communication.Response;
-using StudyFlow.Exceptions.ExceptionBase;
-using StudyFlow.Exceptions;
-using StudyFlow.Domain.Services.LoggedUser;
-using StudyFlow.Domain.Repositories.Topic;
-using AutoMapper;
 using StudyFlow.Domain.Repositories;
 using StudyFlow.Domain.Repositories.Subject;
-using Sqids;
+using StudyFlow.Domain.Repositories.Topic;
+using StudyFlow.Domain.Services.LoggedUser;
+using StudyFlow.Exceptions;
+using StudyFlow.Exceptions.ExceptionBase;
 
-namespace StudyFlow.Application.UseCases.Topic.Create
-{   
-    public class CreateTopicUseCase : ICreateTopicUseCase
+namespace StudyFlow.Application.UseCases.Topic.Update
+{
+    public class UpdateTopicUseCase : IUpdateTopicUseCase
     {
         private readonly ILoggedUser _loggedUser;
         private readonly ITopicReadOnlyRepository _readOnlyRepository;
-        private readonly IMapper _mapper;
-        private readonly ITopicWriteOnlyRepository _writeOnlyRepository;
-        private readonly IUnitOfWork _unitOfWork;
         private readonly ISubjectReadOnlyRepository _subjectReadOnlyRepository;
+        private readonly ITopicUpdateOnlyRepository _updateOnlyRepository;
+        private readonly IUnitOfWork _unitOfWork;
+        private readonly IMapper _mapper;
         private readonly SqidsEncoder<long> _idEncoder;
 
-        public CreateTopicUseCase(
+        public UpdateTopicUseCase(
             ILoggedUser loggedUser,
             ITopicReadOnlyRepository readOnlyRepository,
-            ITopicWriteOnlyRepository writeOnlyRepository,
             ISubjectReadOnlyRepository subjectReadOnlyRepository,
+            ITopicUpdateOnlyRepository updateOnlyRepository,
             IUnitOfWork unitOfWork,
             IMapper mapper,
-            SqidsEncoder<long> idEncoder)
+            SqidsEncoder<long> idEncoder
+            )
         {
             _loggedUser = loggedUser;
             _readOnlyRepository = readOnlyRepository;
-            _writeOnlyRepository = writeOnlyRepository;
             _subjectReadOnlyRepository = subjectReadOnlyRepository;
+            _updateOnlyRepository = updateOnlyRepository;
             _unitOfWork = unitOfWork;
             _mapper = mapper;
             _idEncoder = idEncoder;
         }
 
-        public async Task<ResponseCreatedTopicJson> Execute(RequestCreateTopicJson request)
+        public async Task Execute(long id, RequestUpdateTopicJson request)
         {
             var loggedUser = await _loggedUser.GetLoggedUser();
 
-            await Validate(request, loggedUser);
+            await Validate(request, loggedUser, id);
 
-            var topic = _mapper.Map<Domain.Entities.Topic>(request);
+            var topic = await _updateOnlyRepository.GetTopicById(id, loggedUser);
 
-            topic.UserId = loggedUser.Id;
+            if (topic is null)
+            {
+                throw new NotFoundException(ResourceMessagesException.TOPIC_NOT_FOUND);
+            }
 
-            await _writeOnlyRepository.Add(topic);
+            _mapper.Map(request, topic);
+
+            _updateOnlyRepository.Update(topic);
 
             await _unitOfWork.Commit();
-
-            return _mapper.Map<ResponseCreatedTopicJson>(topic);
         }
 
-        private async Task Validate(RequestCreateTopicJson request, Domain.Entities.User loggedUser)
+        private async Task Validate(RequestUpdateTopicJson request, Domain.Entities.User loggedUser, long id)
         {
-            var validator = new CreateTopicValidator();
+            var validator = new UpdateTopicValidator();
 
             var result = validator.Validate(request);
 
-            var topicAlreadyCreated = await _readOnlyRepository.IsTopicAlreadyCreated(request.Name, loggedUser);
+            var topicAlreadyCreated = await _readOnlyRepository.IsTopicAlreadyCreated(request.Name, loggedUser, id);
 
             if (topicAlreadyCreated)
             {

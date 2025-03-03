@@ -62,6 +62,7 @@ namespace StudyFlow.Infrastructure
 
             services.AddScoped<ITopicReadOnlyRepository, TopicRepository>();
             services.AddScoped<ITopicWriteOnlyRepository, TopicRepository>();
+            services.AddScoped<ITopicUpdateOnlyRepository, TopicRepository>();
 
             services.AddScoped<IUnitOfWork, UnitOfWork>();
         }

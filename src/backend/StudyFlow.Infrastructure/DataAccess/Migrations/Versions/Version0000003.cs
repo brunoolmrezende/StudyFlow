@@ -9,7 +9,7 @@ namespace StudyFlow.Infrastructure.DataAccess.Migrations.Versions
         {
             CreateTable("Topics")
                 .WithColumn("Name").AsString(255).NotNullable()
-                .WithColumn("Description").AsString(255).NotNullable()
+                .WithColumn("Description").AsString(255).Nullable()
                 .WithColumn("UserId").AsInt64().NotNullable().ForeignKey("FK_Topic_User_Id", "Users", "Id")
                 .WithColumn("SubjectId").AsInt64().NotNullable().ForeignKey("FK_Topic_Subject_Id", "Subjects", "Id");
         }
