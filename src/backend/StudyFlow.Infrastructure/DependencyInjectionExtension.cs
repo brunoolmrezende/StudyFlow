@@ -3,6 +3,7 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using StudyFlow.Domain.Repositories;
+using StudyFlow.Domain.Repositories.Review;
 using StudyFlow.Domain.Repositories.Subject;
 using StudyFlow.Domain.Repositories.Topic;
 using StudyFlow.Domain.Repositories.User;
@@ -63,6 +64,9 @@ namespace StudyFlow.Infrastructure
             services.AddScoped<ITopicReadOnlyRepository, TopicRepository>();
             services.AddScoped<ITopicWriteOnlyRepository, TopicRepository>();
             services.AddScoped<ITopicUpdateOnlyRepository, TopicRepository>();
+
+            services.AddScoped<IReviewWriteOnlyRepository, ReviewRepository>();
+            services.AddScoped<IReviewReadOnlyRepository, ReviewRepository>();
 
             services.AddScoped<IUnitOfWork, UnitOfWork>();
         }

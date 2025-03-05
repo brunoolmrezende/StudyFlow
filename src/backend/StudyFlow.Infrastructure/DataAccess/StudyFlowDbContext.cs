@@ -8,9 +8,15 @@ namespace StudyFlow.Infrastructure.DataAccess
         public DbSet<User> Users { get; set; }
         public DbSet<Subject> Subjects { get; set; }
         public DbSet<Topic> Topics { get; set; }
+        public DbSet<Review> Reviews { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
+            modelBuilder.Entity<Review>()
+                .HasOne(r => r.Topic)
+                .WithMany()
+                .HasForeignKey(r => r.TopicId);
+
             modelBuilder.ApplyConfigurationsFromAssembly(typeof(StudyFlowDbContext).Assembly);
         }
     }
