@@ -1,0 +1,24 @@
+﻿using FluentValidation;
+using StudyFlow.Communication.Requests;
+using StudyFlow.Exceptions;
+
+namespace StudyFlow.Application.UseCases.Review.Create
+{
+    public class CreateReviewValidator : AbstractValidator<RequestCreateReviewJson>
+    {
+        public CreateReviewValidator()
+        {
+            RuleFor(review => review.TopicId)
+                .NotEmpty()
+                .WithMessage(ResourceMessagesException.TOPIC_ID_EMPTY);
+
+            RuleFor(review => review.Difficulty)
+                .IsInEnum()
+                .WithMessage(ResourceMessagesException.DIFFICULTY_LEVEL_NOT_SUPPORTED);
+
+            RuleFor(review => review.Status)
+                .IsInEnum()
+                .WithMessage(ResourceMessagesException.STATUS_VALUE_NOT_SUPPORTED);
+        }
+    }
+}

@@ -33,6 +33,11 @@ namespace StudyFlow.Application.Services.AutoMapper
                 .ForMember(dest => dest.Name, opt => opt.MapFrom(source => source.Name))
                 .ForMember(dest => dest.Active, opt => opt.MapFrom(source => source.Active))
                 .ForMember(dest => dest.UpdatedAt, opt => opt.MapFrom(_ => DateTime.UtcNow));
+
+            CreateMap<RequestCreateReviewJson, Domain.Entities.Review>()
+                .ForMember(dest => dest.TopicId, opt => opt.MapFrom(source => _idEncoder.Decode(source.TopicId).FirstOrDefault()))
+                .ForMember(dest => dest.Difficulty, opt => opt.MapFrom(source => source.Difficulty))
+                .ForMember(dest => dest.Status, opt => opt.MapFrom(source => source.Status));
         }
 
         private void DomainToResponse()
@@ -57,6 +62,10 @@ namespace StudyFlow.Application.Services.AutoMapper
             CreateMap<Domain.Entities.Topic, ResponseTopicJson>()
                 .ForMember(dest => dest.Id, opt => opt.MapFrom(source => _idEncoder.Encode(source.Id)))
                 .ForMember(dest => dest.SubjectId, opt => opt.MapFrom(source => _idEncoder.Encode(source.SubjectId)));
+
+            CreateMap<Domain.Entities.Review, ResponseCreatedReviewJson>()
+                .ForMember(dest => dest.Id, opt => opt.MapFrom(source => _idEncoder.Encode(source.Id)))
+                .ForMember(dest => dest.TopicName, opt => opt.MapFrom(source => source.Topic.Name));
         }
     }
 }

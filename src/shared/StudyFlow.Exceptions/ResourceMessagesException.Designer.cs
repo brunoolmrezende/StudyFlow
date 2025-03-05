@@ -79,6 +79,15 @@ namespace StudyFlow.Exceptions {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to The provided difficulty level value is not supported..
+        /// </summary>
+        public static string DIFFICULTY_LEVEL_NOT_SUPPORTED {
+            get {
+                return ResourceManager.GetString("DIFFICULTY_LEVEL_NOT_SUPPORTED", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to The e-mail is already registered..
         /// </summary>
         public static string EMAIL_ALREADY_REGISTERED {
@@ -169,6 +178,15 @@ namespace StudyFlow.Exceptions {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to The provided status value is not supported..
+        /// </summary>
+        public static string STATUS_VALUE_NOT_SUPPORTED {
+            get {
+                return ResourceManager.GetString("STATUS_VALUE_NOT_SUPPORTED", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to The subject is already created..
         /// </summary>
         public static string SUBJECT_ALREADY_CREATED {
@@ -210,6 +228,15 @@ namespace StudyFlow.Exceptions {
         public static string TOPIC_ALREADY_CREATED {
             get {
                 return ResourceManager.GetString("TOPIC_ALREADY_CREATED", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to The topic id cannot be empty..
+        /// </summary>
+        public static string TOPIC_ID_EMPTY {
+            get {
+                return ResourceManager.GetString("TOPIC_ID_EMPTY", resourceCulture);
             }
         }
         

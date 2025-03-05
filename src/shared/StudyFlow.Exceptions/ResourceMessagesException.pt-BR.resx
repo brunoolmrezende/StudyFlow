@@ -177,4 +177,13 @@
   <data name="TOPIC_NOT_FOUND" xml:space="preserve">
     <value>O tópico não foi encontrado.</value>
   </data>
+  <data name="DIFFICULTY_LEVEL_NOT_SUPPORTED" xml:space="preserve">
+    <value>O valor do nível de dificuldade fornecido não é suportado.</value>
+  </data>
+  <data name="STATUS_VALUE_NOT_SUPPORTED" xml:space="preserve">
+    <value>O valor do status fornecido não é suportado.</value>
+  </data>
+  <data name="TOPIC_ID_EMPTY" xml:space="preserve">
+    <value>O topic id não pode estar vazio.</value>
+  </data>
 </root>
