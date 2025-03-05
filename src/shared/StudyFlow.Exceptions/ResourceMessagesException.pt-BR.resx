@@ -186,4 +186,7 @@
   <data name="TOPIC_ID_EMPTY" xml:space="preserve">
     <value>O topic id não pode estar vazio.</value>
   </data>
+  <data name="DATE_CANNOT_BE_IN_THE_PAST" xml:space="preserve">
+    <value>A data de revisão não pode estar no passado.</value>
+  </data>
 </root>

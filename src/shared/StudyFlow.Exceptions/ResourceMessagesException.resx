@@ -186,4 +186,7 @@
   <data name="TOPIC_ID_EMPTY" xml:space="preserve">
     <value>The topic id cannot be empty.</value>
   </data>
+  <data name="DATE_CANNOT_BE_IN_THE_PAST" xml:space="preserve">
+    <value>The review date cannot be in the past.</value>
+  </data>
 </root>

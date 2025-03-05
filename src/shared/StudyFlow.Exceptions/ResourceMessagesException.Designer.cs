@@ -70,6 +70,15 @@ namespace StudyFlow.Exceptions {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to The review date cannot be in the past..
+        /// </summary>
+        public static string DATE_CANNOT_BE_IN_THE_PAST {
+            get {
+                return ResourceManager.GetString("DATE_CANNOT_BE_IN_THE_PAST", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to The description must be at most 255 characters long..
         /// </summary>
         public static string DESCRIPTION_MAX_LENGTH {

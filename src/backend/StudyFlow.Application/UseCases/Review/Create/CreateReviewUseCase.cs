@@ -49,7 +49,6 @@ namespace StudyFlow.Application.UseCases.Review.Create
             var review = _mapper.Map<Domain.Entities.Review>(request);
 
             review.UserId = loggedUser.Id;
-            review.ScheduleNextReview();
 
             await _writeOnlyRepository.Add(review);
 

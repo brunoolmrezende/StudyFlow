@@ -19,6 +19,10 @@ namespace StudyFlow.Application.UseCases.Review.Create
             RuleFor(review => review.Status)
                 .IsInEnum()
                 .WithMessage(ResourceMessagesException.STATUS_VALUE_NOT_SUPPORTED);
+
+            RuleFor(review => review.ScheduledDate)
+                .GreaterThanOrEqualTo(DateTime.UtcNow)
+                .WithMessage(ResourceMessagesException.DATE_CANNOT_BE_IN_THE_PAST);
         }
     }
 }
