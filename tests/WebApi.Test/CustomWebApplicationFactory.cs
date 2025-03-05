@@ -58,6 +58,7 @@ namespace WebApi.Test
         public string GetSubjectName() => _subject.Name;
 
         public string GetTopicId() => IdEncrypterBuilder.Build().Encode(_topic.Id);
+        public long GetLongTopicId() => _topic.Id;
         public string GetTopicName() => _topic.Name;
         public string GetSecondTopicName() => _topic2.Name;
 
