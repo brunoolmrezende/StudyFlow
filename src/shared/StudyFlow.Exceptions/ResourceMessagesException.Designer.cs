@@ -79,6 +79,15 @@ namespace StudyFlow.Exceptions {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to The review date cannot be more than 1 year ahead..
+        /// </summary>
+        public static string DATE_CANNOT_BE_MORE_THAN_1_YEAR_AHEAD {
+            get {
+                return ResourceManager.GetString("DATE_CANNOT_BE_MORE_THAN_1_YEAR_AHEAD", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to The description must be at most 255 characters long..
         /// </summary>
         public static string DESCRIPTION_MAX_LENGTH {
@@ -183,6 +192,15 @@ namespace StudyFlow.Exceptions {
         public static string PASSWORD_LENGTH {
             get {
                 return ResourceManager.GetString("PASSWORD_LENGTH", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to The review could not be found..
+        /// </summary>
+        public static string REVIEW_NOT_FOUND {
+            get {
+                return ResourceManager.GetString("REVIEW_NOT_FOUND", resourceCulture);
             }
         }
         

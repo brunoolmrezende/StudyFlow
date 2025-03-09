@@ -5,7 +5,7 @@ using StudyFlow.Infrastructure.DataAccess;
 
 namespace StudyFlow.Infrastructure.Repositories
 {
-    public class ReviewRepository : IReviewWriteOnlyRepository, IReviewReadOnlyRepository
+    public class ReviewRepository : IReviewWriteOnlyRepository, IReviewReadOnlyRepository, IReviewUpdateOnlyRepository
     {
         private readonly StudyFlowDbContext _dbContext;
 
@@ -19,13 +19,25 @@ namespace StudyFlow.Infrastructure.Repositories
             await _dbContext.Reviews.AddAsync(review);
         }
 
-        public async Task<Review?> GetReviewById(long id, User user)
+        async Task<Review?> IReviewReadOnlyRepository.GetReviewById(long id, User user)
         {
             return await _dbContext
                 .Reviews
                 .AsNoTracking()
                 .Include(x => x.Topic)
                 .FirstOrDefaultAsync(review => review.Id == id && review.UserId == user.Id);
+        }
+
+        async Task<Review?> IReviewUpdateOnlyRepository.GetReviewById(long id, User user)
+        {
+            return await _dbContext
+                .Reviews
+                .FirstOrDefaultAsync(review => review.Id == id && review.UserId == user.Id);
+        }
+
+        public void Update(Review review)
+        {
+            _dbContext.Reviews.Update(review);
         }
     }
 }

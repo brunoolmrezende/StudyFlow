@@ -189,4 +189,10 @@
   <data name="DATE_CANNOT_BE_IN_THE_PAST" xml:space="preserve">
     <value>A data de revisão não pode estar no passado.</value>
   </data>
+  <data name="DATE_CANNOT_BE_MORE_THAN_1_YEAR_AHEAD" xml:space="preserve">
+    <value>A data de revisão não pode estar mais de 1 ano no futuro.</value>
+  </data>
+  <data name="REVIEW_NOT_FOUND" xml:space="preserve">
+    <value>A revisão não foi encontrada.</value>
+  </data>
 </root>

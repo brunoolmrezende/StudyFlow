@@ -189,4 +189,10 @@
   <data name="DATE_CANNOT_BE_IN_THE_PAST" xml:space="preserve">
     <value>The review date cannot be in the past.</value>
   </data>
+  <data name="DATE_CANNOT_BE_MORE_THAN_1_YEAR_AHEAD" xml:space="preserve">
+    <value>The review date cannot be more than 1 year ahead.</value>
+  </data>
+  <data name="REVIEW_NOT_FOUND" xml:space="preserve">
+    <value>The review could not be found.</value>
+  </data>
 </root>
