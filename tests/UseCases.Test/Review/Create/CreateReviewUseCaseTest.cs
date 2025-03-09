@@ -22,7 +22,7 @@ namespace UseCases.Test.Review.Create
 
             var topic = TopicBuilder.Build(user, subject.Id);
 
-            var review = ReviewBuilder.Build(topic.Id);
+            var review = ReviewBuilder.Build(user, topic.Id);
 
             var request = RequestCreateReviewJsonBuilder.Build(topic.Id);
 
@@ -44,7 +44,7 @@ namespace UseCases.Test.Review.Create
 
             var topic = TopicBuilder.Build(user, subject.Id);
 
-            var review = ReviewBuilder.Build(topic.Id);
+            var review = ReviewBuilder.Build(user, topic.Id);
 
             var request = RequestCreateReviewJsonBuilder.Build(topic.Id);
 
