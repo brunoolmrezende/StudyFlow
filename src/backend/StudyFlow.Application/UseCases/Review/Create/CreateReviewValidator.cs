@@ -22,7 +22,10 @@ namespace StudyFlow.Application.UseCases.Review.Create
 
             RuleFor(review => review.ScheduledDate)
                 .GreaterThanOrEqualTo(DateTime.UtcNow)
-                .WithMessage(ResourceMessagesException.DATE_CANNOT_BE_IN_THE_PAST);
+                .WithMessage(ResourceMessagesException.DATE_CANNOT_BE_IN_THE_PAST)
+                .LessThanOrEqualTo(DateTime.UtcNow.AddYears(1))
+                .WithMessage(ResourceMessagesException.DATE_CANNOT_BE_MORE_THAN_1_YEAR_AHEAD)
+                .When(review => review.ScheduledDate.HasValue);
         }
     }
 }

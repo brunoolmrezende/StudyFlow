@@ -57,6 +57,7 @@ namespace StudyFlow.API.Controllers
         [HttpPut("{id}")]
         [ProducesResponseType(StatusCodes.Status204NoContent)]
         [ProducesResponseType(typeof(ResponseErrorJson), StatusCodes.Status404NotFound)]
+        [ProducesResponseType(typeof(ResponseErrorJson), StatusCodes.Status400BadRequest)]
         public async Task<IActionResult> Update(
             [FromServices] IUpdateTopicUseCase useCase,
             [ModelBinder(typeof(StudyFlowBinder))] long id,
