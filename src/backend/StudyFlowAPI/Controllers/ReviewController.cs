@@ -2,6 +2,7 @@
 using StudyFlow.API.Attribute;
 using StudyFlow.API.Binders;
 using StudyFlow.Application.UseCases.Review.Create;
+using StudyFlow.Application.UseCases.Review.Deactivate;
 using StudyFlow.Application.UseCases.Review.Update;
 using StudyFlow.Communication.Requests;
 using StudyFlow.Communication.Response;
@@ -36,6 +37,20 @@ namespace StudyFlow.API.Controllers
 
             return NoContent();
         }
+
+        [HttpPatch("{id}")]
+        [ProducesResponseType(StatusCodes.Status204NoContent)]
+        [ProducesResponseType(typeof(ResponseErrorJson), StatusCodes.Status404NotFound)]
+        public async Task<IActionResult> Deactivate(
+            [FromServices] IDeactivateReviewUseCase useCase,
+            [FromRoute][ModelBinder(typeof(StudyFlowBinder))] long id)
+        {
+            await useCase.Execute(id);
+
+            return NoContent();
+        }
+
+
 
     }
 }
