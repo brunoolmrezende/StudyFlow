@@ -7,5 +7,6 @@ namespace StudyFlow.Communication.Requests
         public DateTime? ScheduledDate { get; set; }
         public DifficultyLevel Difficulty { get; set; }
         public ReviewStatus Status { get; set; }
+        public bool? Active { get; set; }
     }
 }

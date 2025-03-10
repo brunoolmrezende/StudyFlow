@@ -22,6 +22,10 @@ namespace StudyFlow.Application.UseCases.Review.Update
                 .LessThanOrEqualTo(DateTime.UtcNow.AddYears(1))
                 .WithMessage(ResourceMessagesException.DATE_CANNOT_BE_MORE_THAN_1_YEAR_AHEAD)
                 .When(review => review.ScheduledDate.HasValue);
+
+            RuleFor(review => review.Active)
+               .NotNull()
+               .WithMessage(ResourceMessagesException.ACTIVE_STATUS_INVALID);
         }
     }
 }

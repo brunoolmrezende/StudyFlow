@@ -43,7 +43,9 @@ namespace StudyFlow.Application.Services.AutoMapper
             CreateMap<RequestUpdateReviewJson, Domain.Entities.Review>()
                 .ForMember(dest => dest.Difficulty, opt => opt.MapFrom(source => source.Difficulty))
                 .ForMember(dest => dest.Status, opt => opt.MapFrom(source => source.Status))
-                .ForMember(dest => dest.ScheduledDate, opt => opt.MapFrom(source => source.ScheduledDate ?? DateTime.UtcNow.AddDays(ReviewScheduler.GetDaysUntilNextReview((Domain.Enums.DifficultyLevel)source.Difficulty))));
+                .ForMember(dest => dest.ScheduledDate, opt => opt.MapFrom(source => source.ScheduledDate ?? DateTime.UtcNow.AddDays(ReviewScheduler.GetDaysUntilNextReview((Domain.Enums.DifficultyLevel)source.Difficulty))))
+                .ForMember(dest => dest.Active, opt => opt.MapFrom(source => source.Active))
+                .ForMember(dest => dest.UpdatedAt, opt => opt.MapFrom(_ => DateTime.UtcNow));
         }
 
         private void DomainToResponse()

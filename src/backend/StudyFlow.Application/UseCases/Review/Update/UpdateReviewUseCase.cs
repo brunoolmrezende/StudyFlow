@@ -36,7 +36,6 @@ namespace StudyFlow.Application.UseCases.Review.Update
             var review = await _updateOnlyRepository.GetReviewById(reviewId, loggedUser) ?? throw new NotFoundException(ResourceMessagesException.REVIEW_NOT_FOUND);
 
             review = _mapper.Map(request, review);
-            review.UpdatedAt = DateTime.UtcNow;
 
             _updateOnlyRepository.Update(review);
 

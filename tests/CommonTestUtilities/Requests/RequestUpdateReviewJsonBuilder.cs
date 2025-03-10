@@ -11,7 +11,8 @@ namespace CommonTestUtilities.Requests
             return new Faker<RequestUpdateReviewJson>()
                 .RuleFor(request => request.Status, faker => faker.PickRandom<ReviewStatus>())
                 .RuleFor(request => request.Difficulty, faker => faker.PickRandom<DifficultyLevel>())
-                .RuleFor(request => request.ScheduledDate, _ => DateTime.UtcNow.AddDays(7));
+                .RuleFor(request => request.ScheduledDate, _ => DateTime.UtcNow.AddDays(7))
+                .RuleFor(request => request.Active, _ => true);
         }
     }
 }
