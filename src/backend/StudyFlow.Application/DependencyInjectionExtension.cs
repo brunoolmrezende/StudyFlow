@@ -43,6 +43,7 @@ namespace StudyFlow.Application
             services.AddScoped<IGetAllSubjectsUseCase, GetAllSubjectsUseCase>();
             services.AddScoped<IGetSubjectByIdUseCase, GetSubjectByIdUseCase>();
             services.AddScoped<IUpdateSubjectUseCase, UpdateSubjectUseCase>();
+            services.AddScoped<IDeactivateSubjectUseCase, DeactivateSubjectUseCase>();
 
             services.AddScoped<ICreateTopicUseCase, CreateTopicUseCase>();
             services.AddScoped<IGetAllTopicsUseCase, GetAllTopicsUseCase>();

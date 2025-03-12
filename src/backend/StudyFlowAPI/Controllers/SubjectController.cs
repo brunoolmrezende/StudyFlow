@@ -2,6 +2,7 @@
 using StudyFlow.API.Attribute;
 using StudyFlow.API.Binders;
 using StudyFlow.Application.UseCases.Subject.Create;
+using StudyFlow.Application.UseCases.Subject.Deactivate;
 using StudyFlow.Application.UseCases.Subject.GetAll;
 using StudyFlow.Application.UseCases.Subject.GetById;
 using StudyFlow.Application.UseCases.Subject.Update;
@@ -63,6 +64,18 @@ namespace StudyFlow.API.Controllers
             [FromBody] RequestUpdateSubjectJson request)
         {
             await useCase.Execute(id, request);
+
+            return NoContent();
+        }
+
+        [HttpPatch("{id}")]
+        [ProducesResponseType(StatusCodes.Status204NoContent)]
+        [ProducesResponseType(typeof(ResponseErrorJson), StatusCodes.Status404NotFound)]
+        public async Task<IActionResult> Deactivate(
+         [FromServices] IDeactivateSubjectUseCase useCase,
+         [FromRoute][ModelBinder(typeof(StudyFlowBinder))] long id)
+        {
+            await useCase.Execute(id);
 
             return NoContent();
         }
