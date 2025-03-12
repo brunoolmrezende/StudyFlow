@@ -2,6 +2,7 @@
 {
     public interface IReviewReadOnlyRepository
     {
+        Task<IList<Entities.Review>> GetAllReviews(Entities.User loggedUser,  bool? active);
         Task<Entities.Review?> GetReviewById(long id, Entities.User user);
     }
 }

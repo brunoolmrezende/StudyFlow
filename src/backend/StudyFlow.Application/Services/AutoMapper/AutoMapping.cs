@@ -74,6 +74,10 @@ namespace StudyFlow.Application.Services.AutoMapper
             CreateMap<Domain.Entities.Review, ResponseCreatedReviewJson>()
                 .ForMember(dest => dest.Id, opt => opt.MapFrom(source => _idEncoder.Encode(source.Id)))
                 .ForMember(dest => dest.TopicName, opt => opt.MapFrom(source => source.Topic.Name));
+
+            CreateMap<Domain.Entities.Review, ResponseShortReviewJson>()
+                .ForMember(dest => dest.Id, opt => opt.MapFrom(source => _idEncoder.Encode(source.Id)))
+                .ForMember(dest => dest.Topic, opt => opt.MapFrom(source => source.Topic.Name));
         }
     }
 }

@@ -3,6 +3,7 @@ using StudyFlow.API.Attribute;
 using StudyFlow.API.Binders;
 using StudyFlow.Application.UseCases.Review.Create;
 using StudyFlow.Application.UseCases.Review.Deactivate;
+using StudyFlow.Application.UseCases.Review.GetAll;
 using StudyFlow.Application.UseCases.Review.Update;
 using StudyFlow.Communication.Requests;
 using StudyFlow.Communication.Response;
@@ -22,6 +23,23 @@ namespace StudyFlow.API.Controllers
             var response = await useCase.Execute(request);
 
             return Created(string.Empty, response);
+        }
+
+        [HttpGet]
+        [ProducesResponseType(typeof(ResponseTopicsJson), StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status204NoContent)]
+        public async Task<IActionResult> GetAll(
+            [FromServices] IGetAllReviewsUseCase useCase,
+            [FromQuery] bool? active)
+        {
+            var response = await useCase.Execute(active);
+
+            if (response.Reviews.Any())
+            {
+                return Ok(response);
+            }
+
+            return NoContent();
         }
 
         [HttpPut("{id}")]

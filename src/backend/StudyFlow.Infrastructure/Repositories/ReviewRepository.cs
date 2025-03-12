@@ -39,5 +39,23 @@ namespace StudyFlow.Infrastructure.Repositories
         {
             _dbContext.Reviews.Update(review);
         }
+
+        public async Task<IList<Review>> GetAllReviews(User loggedUser, bool? active)
+        {
+            var query = _dbContext
+                .Reviews
+                .AsNoTracking()
+                .Include(x => x.Topic)
+                .Where(review => review.UserId == loggedUser.Id);
+
+            if (active.HasValue)
+            {
+                query = query.Where(review => review.Active == active.Value);
+            }
+
+            return await query
+                .OrderBy(review => review.ScheduledDate)
+                .ToListAsync();        
+        }
     }
 }

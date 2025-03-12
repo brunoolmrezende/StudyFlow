@@ -5,6 +5,7 @@ using Sqids;
 using StudyFlow.Application.Services.AutoMapper;
 using StudyFlow.Application.UseCases.Review.Create;
 using StudyFlow.Application.UseCases.Review.Deactivate;
+using StudyFlow.Application.UseCases.Review.GetAll;
 using StudyFlow.Application.UseCases.Review.Update;
 using StudyFlow.Application.UseCases.Subject.Create;
 using StudyFlow.Application.UseCases.Subject.Deactivate;
@@ -54,6 +55,7 @@ namespace StudyFlow.Application
             services.AddScoped<IDeactivateTopicUseCase, DeactivateTopicUseCase>();
 
             services.AddScoped<ICreateReviewUseCase, CreateReviewUseCase>();
+            services.AddScoped<IGetAllReviewsUseCase, GetAllReviewsUseCase>();
             services.AddScoped<IUpdateReviewUseCase, UpdateReviewUseCase>();
             services.AddScoped<IDeactivateReviewUseCase, DeactivateReviewUseCase>();
         }
