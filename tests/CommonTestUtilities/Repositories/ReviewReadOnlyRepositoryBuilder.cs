@@ -15,7 +15,7 @@ namespace CommonTestUtilities.Repositories
 
         public ReviewReadOnlyRepositoryBuilder GetAllReviews(IList<Review> reviews, User loggedUser)
         {
-            _mock.Setup(repository => repository.GetAllReviews(loggedUser, null)).ReturnsAsync((reviews));
+            _mock.Setup(repository => repository.GetAllReviews(loggedUser, null, null, null)).ReturnsAsync((reviews));
 
             return this;
         }

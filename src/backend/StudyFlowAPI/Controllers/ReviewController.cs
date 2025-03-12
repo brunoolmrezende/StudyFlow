@@ -7,6 +7,7 @@ using StudyFlow.Application.UseCases.Review.GetAll;
 using StudyFlow.Application.UseCases.Review.Update;
 using StudyFlow.Communication.Requests;
 using StudyFlow.Communication.Response;
+using StudyFlow.Domain.Enums;
 
 namespace StudyFlow.API.Controllers
 {
@@ -30,9 +31,11 @@ namespace StudyFlow.API.Controllers
         [ProducesResponseType(StatusCodes.Status204NoContent)]
         public async Task<IActionResult> GetAll(
             [FromServices] IGetAllReviewsUseCase useCase,
-            [FromQuery] bool? active)
+            [FromQuery] bool? active, 
+            [FromQuery] IList<string>? status,
+            [FromQuery] IList<string>? difficulty)
         {
-            var response = await useCase.Execute(active);
+            var response = await useCase.Execute(active, status, difficulty);
 
             if (response.Reviews.Any())
             {

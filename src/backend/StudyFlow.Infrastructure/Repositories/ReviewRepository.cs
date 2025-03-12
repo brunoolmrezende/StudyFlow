@@ -1,5 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using StudyFlow.Domain.Entities;
+using StudyFlow.Domain.Enums;
 using StudyFlow.Domain.Repositories.Review;
 using StudyFlow.Infrastructure.DataAccess;
 
@@ -40,7 +41,7 @@ namespace StudyFlow.Infrastructure.Repositories
             _dbContext.Reviews.Update(review);
         }
 
-        public async Task<IList<Review>> GetAllReviews(User loggedUser, bool? active)
+        public async Task<IList<Review>> GetAllReviews(User loggedUser, bool? active, IList<string>? status, IList<string>? difficulty)
         {
             var query = _dbContext
                 .Reviews
@@ -51,6 +52,46 @@ namespace StudyFlow.Infrastructure.Repositories
             if (active.HasValue)
             {
                 query = query.Where(review => review.Active == active.Value);
+            }
+
+            if (difficulty is not null && difficulty.Any())
+            {
+                var difficultyList = difficulty
+                    .Select(difficulty => Enum.TryParse<DifficultyLevel>(difficulty.Trim(), true, out var parsedDifficulty) ? parsedDifficulty : (DifficultyLevel?)null)
+                    .Where(difficulty => difficulty.HasValue)
+                    .Select(difficulty => difficulty.Value)
+                    .ToList();
+
+                if (difficultyList.Count == 1)
+                {
+                    query = query.Where(review => review.Difficulty == difficultyList.First());
+                }
+                else
+                {
+                    var difficultyQuery = difficultyList.AsQueryable();
+
+                    query = query.Where(review => difficultyQuery.Contains(review.Difficulty));
+                }
+            }
+
+            if (status is not null && status.Any())
+            {
+                var statusList = status
+                    .Select(status => Enum.TryParse<ReviewStatus>(status.Trim(), true, out var parsedStatus) ? parsedStatus : (ReviewStatus?)null)
+                    .Where(status => status.HasValue)
+                    .Select(status => status.Value)
+                    .ToList();
+
+                if (statusList.Count == 1)
+                {
+                    query = query.Where(review => review.Status == statusList.First());
+                }
+                else
+                {
+                    var statusQuery = statusList.AsQueryable();
+
+                    query = query.Where(review => statusQuery.Contains(review.Status));
+                }
             }
 
             return await query

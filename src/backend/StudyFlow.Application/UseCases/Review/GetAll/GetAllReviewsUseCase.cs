@@ -1,5 +1,6 @@
 ﻿using AutoMapper;
 using StudyFlow.Communication.Response;
+using StudyFlow.Domain.Enums;
 using StudyFlow.Domain.Repositories.Review;
 using StudyFlow.Domain.Services.LoggedUser;
 
@@ -21,11 +22,11 @@ namespace StudyFlow.Application.UseCases.Review.GetAll
             _mapper = mapper;
         }
 
-        public async Task<ResponseReviewsJson> Execute(bool? active)
+        public async Task<ResponseReviewsJson> Execute(bool? active, IList<string>? status, IList<string>? difficulty)
         {
             var loggedUser = await _loggedUser.GetLoggedUser();
 
-            var reviews = await _readOnlyRepository.GetAllReviews(loggedUser, active);
+            var reviews = await _readOnlyRepository.GetAllReviews(loggedUser, active, status, difficulty);
 
             return new ResponseReviewsJson
             {

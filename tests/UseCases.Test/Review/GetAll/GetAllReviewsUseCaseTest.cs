@@ -19,7 +19,7 @@ namespace UseCases.Test.Review.GetAll
 
             var useCase = CreateUseCase(user, reviews);
 
-            var result = await useCase.Execute(null);
+            var result = await useCase.Execute(null, null, null);
 
             result.Should().NotBeNull();
             result.Reviews.Should()
