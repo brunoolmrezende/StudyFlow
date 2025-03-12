@@ -1,24 +1,26 @@
 ﻿using AutoMapper;
-using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Configuration;
+using Microsoft.Extensions.DependencyInjection;
 using Sqids;
 using StudyFlow.Application.Services.AutoMapper;
+using StudyFlow.Application.UseCases.Review.Create;
+using StudyFlow.Application.UseCases.Review.Deactivate;
+using StudyFlow.Application.UseCases.Review.Update;
 using StudyFlow.Application.UseCases.Subject.Create;
+using StudyFlow.Application.UseCases.Subject.Deactivate;
+using StudyFlow.Application.UseCases.Subject.GetAll;
+using StudyFlow.Application.UseCases.Subject.GetById;
+using StudyFlow.Application.UseCases.Subject.Update;
+using StudyFlow.Application.UseCases.Topic.Create;
+using StudyFlow.Application.UseCases.Topic.Deactivate;
+using StudyFlow.Application.UseCases.Topic.GetAll;
+using StudyFlow.Application.UseCases.Topic.GetById;
+using StudyFlow.Application.UseCases.Topic.Update;
 using StudyFlow.Application.UseCases.User.ChangePassword;
 using StudyFlow.Application.UseCases.User.GetProfile;
 using StudyFlow.Application.UseCases.User.Login.DoLogin;
 using StudyFlow.Application.UseCases.User.Register;
 using StudyFlow.Application.UseCases.User.Update;
-using StudyFlow.Application.UseCases.Subject.GetAll;
-using StudyFlow.Application.UseCases.Subject.GetById;
-using StudyFlow.Application.UseCases.Subject.Update;
-using StudyFlow.Application.UseCases.Topic.Create;
-using StudyFlow.Application.UseCases.Topic.GetAll;
-using StudyFlow.Application.UseCases.Topic.GetById;
-using StudyFlow.Application.UseCases.Topic.Update;
-using StudyFlow.Application.UseCases.Review.Create;
-using StudyFlow.Application.UseCases.Review.Update;
-using StudyFlow.Application.UseCases.Review.Deactivate;
 
 namespace StudyFlow.Application
 {
@@ -49,6 +51,7 @@ namespace StudyFlow.Application
             services.AddScoped<IGetAllTopicsUseCase, GetAllTopicsUseCase>();
             services.AddScoped<IGetTopicByIdUseCase, GetTopicByIdUseCase>();
             services.AddScoped<IUpdateTopicUseCase, UpdateTopicUseCase>();
+            services.AddScoped<IDeactivateTopicUseCase, DeactivateTopicUseCase>();
 
             services.AddScoped<ICreateReviewUseCase, CreateReviewUseCase>();
             services.AddScoped<IUpdateReviewUseCase, UpdateReviewUseCase>();
