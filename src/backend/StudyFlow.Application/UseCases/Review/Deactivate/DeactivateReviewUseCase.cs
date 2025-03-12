@@ -29,6 +29,7 @@ namespace StudyFlow.Application.UseCases.Review.Deactivate
             var review = await _updateOnlyRepository.GetReviewById(id, loggedUser) ?? throw new NotFoundException(ResourceMessagesException.REVIEW_NOT_FOUND);
 
             review.Active = false;
+            review.UpdatedAt = DateTime.UtcNow;
 
             _updateOnlyRepository.Update(review);
             await _unitOfWork.Commit();
