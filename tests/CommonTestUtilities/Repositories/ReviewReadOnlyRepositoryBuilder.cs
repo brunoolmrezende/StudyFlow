@@ -1,4 +1,5 @@
 ﻿using Moq;
+using StudyFlow.Domain.Entities;
 using StudyFlow.Domain.Repositories.Review;
 
 namespace CommonTestUtilities.Repositories
@@ -12,9 +13,14 @@ namespace CommonTestUtilities.Repositories
             _mock = new Mock<IReviewReadOnlyRepository>();
         }
 
-        public ReviewReadOnlyRepositoryBuilder GetReviewById(
-            StudyFlow.Domain.Entities.Review? review, 
-            StudyFlow.Domain.Entities.User loggedUser)
+        public ReviewReadOnlyRepositoryBuilder GetAllReviews(IList<Review> reviews, User loggedUser)
+        {
+            _mock.Setup(repository => repository.GetAllReviews(loggedUser, null)).ReturnsAsync((reviews));
+
+            return this;
+        }
+
+        public ReviewReadOnlyRepositoryBuilder GetReviewById(Review? review, User loggedUser)
         {
             if (review is not null)
             {
