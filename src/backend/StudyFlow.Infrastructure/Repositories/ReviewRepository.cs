@@ -62,7 +62,7 @@ namespace StudyFlow.Infrastructure.Repositories
                 .ToListAsync();        
         }
 
-        private void ApplyEnumFilter<TEnum>(
+        private static void ApplyEnumFilter<TEnum>(
             ref IQueryable<Review> query,
             IList<string>? values,
             Expression<Func<Review, TEnum>> propertySelector)
@@ -73,13 +73,13 @@ namespace StudyFlow.Infrastructure.Repositories
             var enumList = values
                  .Select(value => Enum.TryParse<TEnum>(value.Trim(), true, out var parsedEnum) ? parsedEnum : (TEnum?)null)
                  .Where(e => e.HasValue)
-                 .Select(e => e.Value)
+                 .Select(e => e!.Value)
                  .ToList();
 
             if (enumList.Count == 0) return;
 
             query = enumList.Count == 1
-                ? query.Where(review => propertySelector.Compile()(review).Equals(enumList.First()))
+                ? query.Where(review => propertySelector.Compile()(review).Equals(enumList[0]))
                 : query.Where(review => enumList.Contains(propertySelector.Compile()(review)));
         }
     }
