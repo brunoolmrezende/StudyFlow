@@ -65,7 +65,7 @@ namespace StudyFlow.Application.UseCases.Review.Create
 
             var result = validator.Validate(request);
 
-            var topicId = _idEncoder.Decode(request.TopicId).FirstOrDefault();
+            var topicId = _idEncoder.Decode(request.TopicId)[0];
 
             var topicExists = await _topicReadOnlyRepository.GetTopicById(topicId, loggedUser);
 

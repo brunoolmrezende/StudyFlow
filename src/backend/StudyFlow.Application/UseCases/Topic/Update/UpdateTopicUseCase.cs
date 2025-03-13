@@ -72,7 +72,7 @@ namespace StudyFlow.Application.UseCases.Topic.Update
                 result.Errors.Add(new FluentValidation.Results.ValidationFailure("Topic already exists.", ResourceMessagesException.TOPIC_ALREADY_CREATED));
             }
 
-            var subjectId = _idEncoder.Decode(request.SubjectId).FirstOrDefault();
+            var subjectId = _idEncoder.Decode(request.SubjectId)[0];
 
             var checkSubjectExists = await _subjectReadOnlyRepository.GetSubjectById(subjectId, loggedUser);
 
