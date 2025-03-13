@@ -58,7 +58,7 @@ namespace UseCases.Test.Review.Create
         }
 
         private static CreateReviewUseCase CreateUseCase(
-            StudyFlow.Domain.Entities.User user, 
+            StudyFlow.Domain.Entities.User user,
             StudyFlow.Domain.Entities.Topic? topic = null,
             StudyFlow.Domain.Entities.Review? review = null)
         {
@@ -75,19 +75,19 @@ namespace UseCases.Test.Review.Create
                 topicReadOnlyRepository.GetTopicById(user, topic);
             }
 
-            if (review is not null)
+            if (review is not null && topic is not null)
             {
                 review.Topic = topic;
                 readOnlyRepository.GetReviewById(review, user);
             }
 
             return new CreateReviewUseCase(
-                loggedUser, 
-                topicReadOnlyRepository.Build(), 
-                idEncoder, 
-                mapper, 
-                writeOnlyRepository, 
-                unitOfWork, 
+                loggedUser,
+                topicReadOnlyRepository.Build(),
+                idEncoder,
+                mapper,
+                writeOnlyRepository,
+                unitOfWork,
                 readOnlyRepository.Build());
         }
     }

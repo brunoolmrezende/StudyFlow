@@ -48,7 +48,7 @@ namespace StudyFlow.Infrastructure.Repositories
         {
            return await _dbContext
                 .Subjects
-                .AnyAsync(subject => subject.Name.ToLower() == name.ToLower() && subject.UserId == loggedUser.Id);
+                .AnyAsync(subject => subject.Name.Equals(name, StringComparison.CurrentCultureIgnoreCase) && subject.UserId == loggedUser.Id);
         }
 
         async Task<Subject?> ISubjectUpdateOnlyRepository.GetSubjectById(long id, User loggedUser)

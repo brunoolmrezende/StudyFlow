@@ -48,7 +48,7 @@ namespace StudyFlow.Infrastructure.Repositories
         {
             return await _dbContext
                 .Topics
-                .AnyAsync(topic => topic.Name.ToLower() == name.ToLower() 
+                .AnyAsync(topic => topic.Name.Equals(name, StringComparison.CurrentCultureIgnoreCase)
                                    && topic.UserId == loggedUser.Id 
                                    && (!topicId.HasValue || topic.Id != topicId));
         }
