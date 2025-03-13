@@ -31,7 +31,7 @@ namespace StudyFlow.Application
         {
             AddUseCases(services);
             AddIdEncoder(services, configuration);
-            AddAutoMapper(services);
+            AddAutoMapper(services, configuration);
         }
 
         private static void AddUseCases(this IServiceCollection services)
@@ -60,7 +60,7 @@ namespace StudyFlow.Application
             services.AddScoped<IDeactivateReviewUseCase, DeactivateReviewUseCase>();
         }
 
-        private static void AddAutoMapper(this IServiceCollection services)
+        private static void AddAutoMapper(this IServiceCollection services, IConfiguration configuration)
         {
             services.AddScoped(options => new MapperConfiguration(autoMapperOptions =>
             {

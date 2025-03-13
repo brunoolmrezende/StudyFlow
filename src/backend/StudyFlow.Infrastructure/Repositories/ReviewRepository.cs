@@ -1,6 +1,6 @@
-﻿using System.Linq.Expressions;
-using Microsoft.EntityFrameworkCore;
+﻿using Microsoft.EntityFrameworkCore;
 using StudyFlow.Domain.Entities;
+using StudyFlow.Domain.Enums;
 using StudyFlow.Domain.Repositories.Review;
 using StudyFlow.Infrastructure.DataAccess;
 
@@ -20,20 +20,20 @@ namespace StudyFlow.Infrastructure.Repositories
             await _dbContext.Reviews.AddAsync(review);
         }
 
-        async Task<Review?> IReviewReadOnlyRepository.GetReviewById(long id, User loggedUser)
+        async Task<Review?> IReviewReadOnlyRepository.GetReviewById(long id, User user)
         {
             return await _dbContext
                 .Reviews
                 .AsNoTracking()
                 .Include(x => x.Topic)
-                .FirstOrDefaultAsync(review => review.Id == id && review.UserId == loggedUser.Id);
+                .FirstOrDefaultAsync(review => review.Id == id && review.UserId == user.Id);
         }
 
-        async Task<Review?> IReviewUpdateOnlyRepository.GetReviewById(long id, User loggedUser)
+        async Task<Review?> IReviewUpdateOnlyRepository.GetReviewById(long id, User user)
         {
             return await _dbContext
                 .Reviews
-                .FirstOrDefaultAsync(review => review.Id == id && review.UserId == loggedUser.Id);
+                .FirstOrDefaultAsync(review => review.Id == id && review.UserId == user.Id);
         }
 
         public void Update(Review review)
@@ -54,33 +54,49 @@ namespace StudyFlow.Infrastructure.Repositories
                 query = query.Where(review => review.Active == active.Value);
             }
 
-            ApplyEnumFilter(ref query, difficulty, d => d.Difficulty);
-            ApplyEnumFilter(ref query, status, s => s.Status);
-            
+            if (difficulty is not null && difficulty.Any())
+            {
+                var difficultyList = difficulty
+                    .Select(difficulty => Enum.TryParse<DifficultyLevel>(difficulty.Trim(), true, out var parsedDifficulty) ? parsedDifficulty : (DifficultyLevel?)null)
+                    .Where(difficulty => difficulty.HasValue)
+                    .Select(difficulty => difficulty.Value)
+                    .ToList();
+
+                if (difficultyList.Count == 1)
+                {
+                    query = query.Where(review => review.Difficulty == difficultyList.First());
+                }
+                else
+                {
+                    var difficultyQuery = difficultyList.AsQueryable();
+
+                    query = query.Where(review => difficultyQuery.Contains(review.Difficulty));
+                }
+            }
+
+            if (status is not null && status.Any())
+            {
+                var statusList = status
+                    .Select(status => Enum.TryParse<ReviewStatus>(status.Trim(), true, out var parsedStatus) ? parsedStatus : (ReviewStatus?)null)
+                    .Where(status => status.HasValue)
+                    .Select(status => status.Value)
+                    .ToList();
+
+                if (statusList.Count == 1)
+                {
+                    query = query.Where(review => review.Status == statusList.First());
+                }
+                else
+                {
+                    var statusQuery = statusList.AsQueryable();
+
+                    query = query.Where(review => statusQuery.Contains(review.Status));
+                }
+            }
+
             return await query
                 .OrderBy(review => review.ScheduledDate)
                 .ToListAsync();        
-        }
-
-        private static void ApplyEnumFilter<TEnum>(
-            ref IQueryable<Review> query,
-            IList<string>? values,
-            Expression<Func<Review, TEnum>> propertySelector)
-            where TEnum : struct, Enum
-        {
-            if (values is null || !values.Any()) return;
-
-            var enumList = values
-                 .Select(value => Enum.TryParse<TEnum>(value.Trim(), true, out var parsedEnum) ? parsedEnum : (TEnum?)null)
-                 .Where(e => e.HasValue)
-                 .Select(e => e!.Value)
-                 .ToList();
-
-            if (enumList.Count == 0) return;
-
-            query = enumList.Count == 1
-                ? query.Where(review => propertySelector.Compile()(review).Equals(enumList[0]))
-                : query.Where(review => enumList.Contains(propertySelector.Compile()(review)));
         }
     }
 }

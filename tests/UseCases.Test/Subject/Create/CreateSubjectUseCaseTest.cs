@@ -61,7 +61,7 @@ namespace UseCases.Test.Subject.Create
                     && error.GetErrorMessages().Contains(ResourceMessagesException.SUBJECT_ALREADY_CREATED));
         }
 
-        private static CreateSubjectUseCase CreateUseCase(StudyFlow.Domain.Entities.User user, string? subjectName = null)
+        private CreateSubjectUseCase CreateUseCase(StudyFlow.Domain.Entities.User user, string? subjectName = null)
         {
             var writeOnlyRepository = SubjectWriteOnlyRepositoryBuilder.Build();
             var readOnlyRepository = new SubjectReadOnlyRepositoryBuilder();

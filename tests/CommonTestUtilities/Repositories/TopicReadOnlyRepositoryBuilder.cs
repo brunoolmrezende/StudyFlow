@@ -17,7 +17,7 @@ namespace CommonTestUtilities.Repositories
         {
             if (!string.IsNullOrWhiteSpace(name))
             {
-                _mock.Setup(x => x.IsTopicAlreadyCreated(It.Is<string>(n => n.Equals(name, StringComparison.CurrentCultureIgnoreCase)), user, It.IsAny<long?>())).ReturnsAsync(true);
+                _mock.Setup(x => x.IsTopicAlreadyCreated(It.Is<string>(n => n.ToLower() == name.ToLower()), user, It.IsAny<long?>())).ReturnsAsync(true);
             }
 
             return this;

@@ -25,17 +25,17 @@ namespace StudyFlow.Application.Services.AutoMapper
             CreateMap<RequestCreateSubjectJson, Domain.Entities.Subject>();
 
             CreateMap<RequestCreateTopicJson, Domain.Entities.Topic>()
-                .ForMember(dest => dest.SubjectId, opt => opt.MapFrom(source => _idEncoder.Decode(source.SubjectId)[0]));
+                .ForMember(dest => dest.SubjectId, opt => opt.MapFrom(source => _idEncoder.Decode(source.SubjectId).FirstOrDefault()));
 
             CreateMap<RequestUpdateTopicJson, Domain.Entities.Topic>()
-                .ForMember(dest => dest.SubjectId, opt => opt.MapFrom(source => _idEncoder.Decode(source.SubjectId)[0]))
+                .ForMember(dest => dest.SubjectId, opt => opt.MapFrom(source => _idEncoder.Decode(source.SubjectId).FirstOrDefault()))
                 .ForMember(dest => dest.Description, opt => opt.MapFrom(source => source.Description != null ? source.Description.Trim() : null))
                 .ForMember(dest => dest.Name, opt => opt.MapFrom(source => source.Name))
                 .ForMember(dest => dest.Active, opt => opt.MapFrom(source => source.Active))
                 .ForMember(dest => dest.UpdatedAt, opt => opt.MapFrom(_ => DateTime.UtcNow));
 
             CreateMap<RequestCreateReviewJson, Domain.Entities.Review>()
-                .ForMember(dest => dest.TopicId, opt => opt.MapFrom(source => _idEncoder.Decode(source.TopicId)[0]))
+                .ForMember(dest => dest.TopicId, opt => opt.MapFrom(source => _idEncoder.Decode(source.TopicId).FirstOrDefault()))
                 .ForMember(dest => dest.Difficulty, opt => opt.MapFrom(source => source.Difficulty))
                 .ForMember(dest => dest.Status, opt => opt.MapFrom(source => source.Status))
                 .ForMember(dest => dest.ScheduledDate, opt => opt.MapFrom(source => source.ScheduledDate ?? DateTime.UtcNow.AddDays(ReviewScheduler.GetDaysUntilNextReview((Domain.Enums.DifficultyLevel)source.Difficulty))));
