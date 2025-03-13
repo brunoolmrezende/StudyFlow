@@ -36,6 +36,21 @@ namespace Validators.Test.User.Register
         }
 
         [Fact]
+        public void Error_Name_Max_Length()
+        {
+            var request = RequestRegisterUserJsonBuilder.Build();
+            request.Name = new string('a', 256);
+
+            var validator = new RegisterUserValidator();
+
+            var result = validator.Validate(request);
+
+            result.IsValid.Should().BeFalse();
+            result.Errors.Should().NotBeEmpty();
+            result.Errors.Should().Contain(errors => errors.ErrorMessage.Equals(ResourceMessagesException.NAME_MAX_LENGTH));
+        }
+
+        [Fact]
         public void Error_Empty_Email()
         {
             var request = RequestRegisterUserJsonBuilder.Build();
@@ -63,6 +78,21 @@ namespace Validators.Test.User.Register
             result.IsValid.Should().BeFalse();
             result.Errors.Should().NotBeEmpty();
             result.Errors.Should().Contain(errors => errors.ErrorMessage.Equals(ResourceMessagesException.INVALID_EMAIL));
+        }
+
+        [Fact]
+        public void Error_Max_Length_Email()
+        {
+            var request = RequestRegisterUserJsonBuilder.Build();
+            request.Email = new string('a', 256);
+
+            var validator = new RegisterUserValidator();
+
+            var result = validator.Validate(request);
+
+            result.IsValid.Should().BeFalse();
+            result.Errors.Should().NotBeEmpty();
+            result.Errors.Should().Contain(errors => errors.ErrorMessage.Equals(ResourceMessagesException.EMAIL_MAX_LENGTH));
         }
 
         [Fact]

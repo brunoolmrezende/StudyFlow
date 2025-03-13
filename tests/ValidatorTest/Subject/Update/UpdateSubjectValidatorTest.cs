@@ -35,6 +35,20 @@ namespace Validators.Test.Subject.Update
         }
 
         [Fact]
+        public void Error_Max_Length_Name()
+        {
+            var request = RequestUpdateSubjectJsonBuilder.Build();
+            request.Name = new string('a', 256);
+
+            var validator = new RequestUpdateSubjectValidator();
+
+            var result = validator.Validate(request);
+
+            result.IsValid.Should().BeFalse();
+            result.Errors.Should().ContainSingle().And.Contain(error => error.ErrorMessage.Equals(ResourceMessagesException.NAME_MAX_LENGTH));
+        }
+
+        [Fact]
         public void Error_Active_Status_Invalid()
         {
             var request = RequestUpdateSubjectJsonBuilder.Build();

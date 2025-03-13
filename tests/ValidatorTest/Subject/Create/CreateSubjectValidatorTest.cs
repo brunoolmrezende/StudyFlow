@@ -1,4 +1,5 @@
-﻿using CommonTestUtilities.Requests;
+﻿using Bogus;
+using CommonTestUtilities.Requests;
 using FluentAssertions;
 using StudyFlow.Application.UseCases.Subject.Create;
 using StudyFlow.Exceptions;
@@ -32,6 +33,20 @@ namespace Validators.Test.Subject.Create
 
             result.IsValid.Should().BeFalse();
             result.Errors.Should().ContainSingle().And.Contain(error => error.ErrorMessage.Equals(ResourceMessagesException.NAME_EMPTY));
+        }
+
+        [Fact]
+        public void Error_Name_Max_Length()
+        {
+            var request = RequestCreateSubjectJsonBuilder.Build();
+            request.Name = new string('a', 256);
+
+            var validator = new CreateSubjectValidator();
+
+            var result = validator.Validate(request);
+
+            result.IsValid.Should().BeFalse();
+            result.Errors.Should().ContainSingle().And.Contain(error => error.ErrorMessage.Equals(ResourceMessagesException.NAME_MAX_LENGTH));
         }
     }
 }

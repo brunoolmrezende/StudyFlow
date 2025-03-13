@@ -36,6 +36,21 @@ namespace Validators.Test.User.Update
         }
 
         [Fact]
+        public void Error_Max_Length_Name()
+        {
+            var request = RequestUpdateUserJsonBuilder.Build();
+            request.Name = new string('a', 256);
+
+            var validator = new RequestUpdateUserValidator();
+
+            var result = validator.Validate(request);
+
+            result.IsValid.Should().BeFalse();
+            result.Errors.Should().NotBeEmpty();
+            result.Errors.Should().Contain(errors => errors.ErrorMessage.Equals(ResourceMessagesException.NAME_MAX_LENGTH));
+        }
+
+        [Fact]
         public void Error_Empty_Email()
         {
             var request = RequestUpdateUserJsonBuilder.Build();
@@ -48,6 +63,21 @@ namespace Validators.Test.User.Update
             result.IsValid.Should().BeFalse();
             result.Errors.Should().NotBeEmpty();
             result.Errors.Should().Contain(errors => errors.ErrorMessage.Equals(ResourceMessagesException.EMAIL_EMPTY));
+        }
+
+        [Fact]
+        public void Error_Max_Length_Email()
+        {
+            var request = RequestUpdateUserJsonBuilder.Build();
+            request.Email = new string('a', 256);
+
+            var validator = new RequestUpdateUserValidator();
+
+            var result = validator.Validate(request);
+
+            result.IsValid.Should().BeFalse();
+            result.Errors.Should().NotBeEmpty();
+            result.Errors.Should().Contain(errors => errors.ErrorMessage.Equals(ResourceMessagesException.EMAIL_MAX_LENGTH));
         }
 
         [Fact]

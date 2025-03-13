@@ -10,7 +10,9 @@ namespace StudyFlow.Application.UseCases.Subject.Update
         {
             RuleFor(subject => subject.Name)
                 .NotEmpty()
-                .WithMessage(ResourceMessagesException.NAME_EMPTY);
+                .WithMessage(ResourceMessagesException.NAME_EMPTY)
+                .MaximumLength(255)
+                .WithMessage(ResourceMessagesException.NAME_MAX_LENGTH);
 
             RuleFor(subject => subject.Active)
                 .NotNull()

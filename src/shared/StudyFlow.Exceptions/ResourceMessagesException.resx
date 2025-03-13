@@ -195,4 +195,7 @@
   <data name="REVIEW_NOT_FOUND" xml:space="preserve">
     <value>The review could not be found.</value>
   </data>
+  <data name="EMAIL_MAX_LENGTH" xml:space="preserve">
+    <value>The email must be at most 255 characters long.</value>
+  </data>
 </root>

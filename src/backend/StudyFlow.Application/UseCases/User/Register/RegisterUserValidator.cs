@@ -10,11 +10,15 @@ namespace StudyFlow.Application.UseCases.User.Register
         {
             RuleFor(user => user.Name)
                 .NotEmpty()
-                .WithMessage(ResourceMessagesException.NAME_EMPTY);
+                .WithMessage(ResourceMessagesException.NAME_EMPTY)
+                .MaximumLength(255)
+                .WithMessage(ResourceMessagesException.NAME_MAX_LENGTH);
 
             RuleFor(user => user.Email)
                 .NotEmpty()
-                .WithMessage(ResourceMessagesException.EMAIL_EMPTY);
+                .WithMessage(ResourceMessagesException.EMAIL_EMPTY)
+                .MaximumLength(255)
+                .WithMessage(ResourceMessagesException.EMAIL_MAX_LENGTH);
 
             When(user => !string.IsNullOrWhiteSpace(user.Email), () =>
             {
