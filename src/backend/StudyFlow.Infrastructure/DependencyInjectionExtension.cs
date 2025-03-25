@@ -1,4 +1,5 @@
-﻿using FluentMigrator.Runner;
+﻿using System.Reflection;
+using FluentMigrator.Runner;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
@@ -9,6 +10,7 @@ using StudyFlow.Domain.Repositories.Topic;
 using StudyFlow.Domain.Repositories.User;
 using StudyFlow.Domain.Security.Cryptography;
 using StudyFlow.Domain.Security.Token;
+using StudyFlow.Domain.Services.Email;
 using StudyFlow.Domain.Services.LoggedUser;
 using StudyFlow.Infrastructure.DataAccess;
 using StudyFlow.Infrastructure.Extensions;
@@ -16,8 +18,8 @@ using StudyFlow.Infrastructure.Repositories;
 using StudyFlow.Infrastructure.Security.Cryptography;
 using StudyFlow.Infrastructure.Security.Token.Generate;
 using StudyFlow.Infrastructure.Security.Token.Validate;
+using StudyFlow.Infrastructure.Services.Email;
 using StudyFlow.Infrastructure.Services.LoggedUser;
-using System.Reflection;
 
 namespace StudyFlow.Infrastructure
 {
@@ -29,6 +31,7 @@ namespace StudyFlow.Infrastructure
             AddEncrypter(services);
             AddToken(services, configuration);
             AddLoggedUser(services);
+            AddSendReviewReminderMail(services, configuration);
 
             if (configuration.IsUnitTestEnviroment())
             {
@@ -84,6 +87,19 @@ namespace StudyFlow.Infrastructure
 
             services.AddScoped<IAccessTokenGenerator>(options => new AccessTokenGenerator(expirationTimeMinutes, signInKey!));
             services.AddScoped<IAccessTokenValidator>(options => new AccessTokenValidator(signInKey!));
+        }
+
+        private static void AddSendReviewReminderMail(this IServiceCollection services, IConfiguration configuration)
+        {
+            var credentialUser = configuration.GetValue<string>("SendGrid:CredentialUser");
+            var credentialPassword = configuration.GetValue<string>("SendGrid:CredentialPassword");
+            var address = configuration.GetValue<string>("EmailCredentials:Address");
+            var displayName = configuration.GetValue<string>("EmailCredentials:DisplayName");
+            var host = configuration.GetValue<string>("SendGrid:Host");
+            var port = configuration.GetValue<int>("SendGrid:Port");
+
+
+            services.AddScoped<ISendReviewReminderMail>(options => new SendReviewReminderMail(credentialUser!, credentialPassword!, address!, displayName!, host!, port));
         }
 
         private static void AddLoggedUser(this IServiceCollection services)

@@ -1,15 +1,15 @@
+using Microsoft.OpenApi.Models;
 using StudyFlow.API.Converters;
 using StudyFlow.API.Filters;
 using StudyFlow.API.Middleware;
 using StudyFlow.API.RateLimits;
+using StudyFlow.API.Services.ReviewReminder;
 using StudyFlow.API.Token;
 using StudyFlow.Application;
 using StudyFlow.Domain.Security.Token;
 using StudyFlow.Infrastructure;
 using StudyFlow.Infrastructure.DataAccess.Migrations;
 using StudyFlow.Infrastructure.Extensions;
-using StudyFlow.Infrastructure.Services.ReviewReminder;
-using Microsoft.OpenApi.Models;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -41,7 +41,7 @@ builder.Services.AddInfrastructure(builder.Configuration);
 builder.Services.AddApplication(builder.Configuration);
 builder.Services.AddScoped<ITokenProvider, HttpContextTokenValue>();
 
-builder.Services.AddHostedService<ReviewReminderBackgroundService>();
+builder.Services.AddHostedService<ReviewReminderService>();
 
 var app = builder.Build();
 
