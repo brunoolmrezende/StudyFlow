@@ -1,5 +1,4 @@
-﻿using System.Linq.Expressions;
-using Microsoft.EntityFrameworkCore;
+﻿using Microsoft.EntityFrameworkCore;
 using StudyFlow.Domain.Entities;
 using StudyFlow.Domain.Repositories.Review;
 using StudyFlow.Infrastructure.DataAccess;
@@ -41,7 +40,7 @@ namespace StudyFlow.Infrastructure.Repositories
             _dbContext.Reviews.Update(review);
         }
 
-        public async Task<IList<Review>> GetAllReviews(User loggedUser, bool? active, IList<string>? status, IList<string>? difficulty)
+        public async Task<IList<Review>> GetAllReviews(User loggedUser, bool? active, string? status, string? difficulty)
         {
             var query = _dbContext
                 .Reviews
@@ -54,33 +53,36 @@ namespace StudyFlow.Infrastructure.Repositories
                 query = query.Where(review => review.Active == active.Value);
             }
 
-            ApplyEnumFilter(ref query, difficulty, d => d.Difficulty);
-            ApplyEnumFilter(ref query, status, s => s.Status);
-            
+            if (!string.IsNullOrWhiteSpace(status) && Enum.TryParse<Domain.Enums.ReviewStatus>(status, out var reviewStatus))
+            {
+                query = query.Where(review => review.Status == reviewStatus);
+            }
+
+            if (!string.IsNullOrWhiteSpace(difficulty) && Enum.TryParse<Domain.Enums.DifficultyLevel>(difficulty, out var reviewDifficulty))
+            {
+                query = query.Where(review => review.Difficulty == reviewDifficulty);
+            }
+
             return await query
                 .OrderBy(review => review.ScheduledDate)
-                .ToListAsync();        
+                .ToListAsync();
         }
 
-        private static void ApplyEnumFilter<TEnum>(
-            ref IQueryable<Review> query,
-            IList<string>? values,
-            Expression<Func<Review, TEnum>> propertySelector)
-            where TEnum : struct, Enum
+        public async Task<IList<Review>> GetReviewsForReminderAsync()
         {
-            if (values is null || !values.Any()) return;
+            var now = DateTime.UtcNow;
+            var notificationLeadTime = TimeSpan.FromHours(12);
 
-            var enumList = values
-                 .Select(value => Enum.TryParse<TEnum>(value.Trim(), true, out var parsedEnum) ? parsedEnum : (TEnum?)null)
-                 .Where(e => e.HasValue)
-                 .Select(e => e!.Value)
-                 .ToList();
+            var reminderTime = now.Add(notificationLeadTime);
 
-            if (enumList.Count == 0) return;
+            var query = _dbContext
+                .Reviews
+                .AsNoTracking()
+                .Include(x => x.Topic)
+                .Include(x => x.User)
+                .Where(review => review.ScheduledDate >= now && review.ScheduledDate <= reminderTime && review.Status == Domain.Enums.ReviewStatus.Pending);
 
-            query = enumList.Count == 1
-                ? query.Where(review => propertySelector.Compile()(review).Equals(enumList[0]))
-                : query.Where(review => enumList.Contains(propertySelector.Compile()(review)));
+            return await query.ToListAsync();
         }
     }
 }

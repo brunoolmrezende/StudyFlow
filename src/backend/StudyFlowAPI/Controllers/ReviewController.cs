@@ -1,5 +1,4 @@
 ﻿using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.RateLimiting;
 using StudyFlow.API.Attribute;
 using StudyFlow.API.Binders;
 using StudyFlow.Application.UseCases.Review.Create;
@@ -8,7 +7,6 @@ using StudyFlow.Application.UseCases.Review.GetAll;
 using StudyFlow.Application.UseCases.Review.Update;
 using StudyFlow.Communication.Requests;
 using StudyFlow.Communication.Response;
-using StudyFlow.Domain.Enums;
 
 namespace StudyFlow.API.Controllers
 {
@@ -33,8 +31,8 @@ namespace StudyFlow.API.Controllers
         public async Task<IActionResult> GetAll(
             [FromServices] IGetAllReviewsUseCase useCase,
             [FromQuery] bool? active, 
-            [FromQuery] IList<string>? status,
-            [FromQuery] IList<string>? difficulty)
+            [FromQuery] string? status,
+            [FromQuery] string? difficulty)
         {
             var response = await useCase.Execute(active, status, difficulty);
 

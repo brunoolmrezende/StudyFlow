@@ -11,5 +11,6 @@ namespace StudyFlow.Domain.Entities
         public ReviewStatus Status { get; set; } 
 
         public Topic Topic { get; set; } = null!;
+        public User User { get; set; } = null!;
     }
 }

@@ -17,6 +17,11 @@ namespace StudyFlow.Infrastructure.DataAccess
                 .WithMany()
                 .HasForeignKey(r => r.TopicId);
 
+            modelBuilder.Entity<Review>()
+                .HasOne(r => r.User)
+                .WithMany()
+                .HasForeignKey(r => r.UserId);
+
             modelBuilder.ApplyConfigurationsFromAssembly(typeof(StudyFlowDbContext).Assembly);
         }
     }
