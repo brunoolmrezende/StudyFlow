@@ -1,5 +1,4 @@
-﻿using System.Reflection;
-using FluentMigrator.Runner;
+﻿using FluentMigrator.Runner;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
@@ -16,10 +15,11 @@ using StudyFlow.Infrastructure.DataAccess;
 using StudyFlow.Infrastructure.Extensions;
 using StudyFlow.Infrastructure.Repositories;
 using StudyFlow.Infrastructure.Security.Cryptography;
-using StudyFlow.Infrastructure.Security.Token.Generate;
-using StudyFlow.Infrastructure.Security.Token.Validate;
+using StudyFlow.Infrastructure.Security.Token.Access.Generate;
+using StudyFlow.Infrastructure.Security.Token.Access.Validate;
 using StudyFlow.Infrastructure.Services.Email;
 using StudyFlow.Infrastructure.Services.LoggedUser;
+using System.Reflection;
 
 namespace StudyFlow.Infrastructure
 {

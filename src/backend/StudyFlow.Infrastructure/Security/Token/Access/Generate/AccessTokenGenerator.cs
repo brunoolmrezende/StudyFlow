@@ -3,7 +3,7 @@ using StudyFlow.Domain.Security.Token;
 using System.IdentityModel.Tokens.Jwt;
 using System.Security.Claims;
 
-namespace StudyFlow.Infrastructure.Security.Token.Generate
+namespace StudyFlow.Infrastructure.Security.Token.Access.Generate
 {
     public class AccessTokenGenerator : JwtTokenHandler, IAccessTokenGenerator
     {

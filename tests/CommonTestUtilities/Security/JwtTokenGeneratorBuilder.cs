@@ -1,5 +1,5 @@
 ﻿using StudyFlow.Domain.Security.Token;
-using StudyFlow.Infrastructure.Security.Token.Generate;
+using StudyFlow.Infrastructure.Security.Token.Access.Generate;
 
 namespace CommonTestUtilities.Security
 {

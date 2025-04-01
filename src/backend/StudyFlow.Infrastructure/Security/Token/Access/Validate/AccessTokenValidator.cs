@@ -3,7 +3,7 @@ using StudyFlow.Domain.Security.Token;
 using System.IdentityModel.Tokens.Jwt;
 using System.Security.Claims;
 
-namespace StudyFlow.Infrastructure.Security.Token.Validate
+namespace StudyFlow.Infrastructure.Security.Token.Access.Validate
 {
     public class AccessTokenValidator : JwtTokenHandler, IAccessTokenValidator
     {
