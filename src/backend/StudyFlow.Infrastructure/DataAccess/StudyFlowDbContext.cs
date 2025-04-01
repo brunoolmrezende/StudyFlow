@@ -9,6 +9,7 @@ namespace StudyFlow.Infrastructure.DataAccess
         public DbSet<Subject> Subjects { get; set; }
         public DbSet<Topic> Topics { get; set; }
         public DbSet<Review> Reviews { get; set; }
+        public DbSet<RefreshToken> RefreshTokens { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
