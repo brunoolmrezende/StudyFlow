@@ -5,6 +5,7 @@ using Microsoft.Extensions.DependencyInjection;
 using StudyFlow.Domain.Repositories;
 using StudyFlow.Domain.Repositories.Review;
 using StudyFlow.Domain.Repositories.Subject;
+using StudyFlow.Domain.Repositories.Token;
 using StudyFlow.Domain.Repositories.Topic;
 using StudyFlow.Domain.Repositories.User;
 using StudyFlow.Domain.Security.Cryptography;
@@ -71,6 +72,8 @@ namespace StudyFlow.Infrastructure
             services.AddScoped<IReviewWriteOnlyRepository, ReviewRepository>();
             services.AddScoped<IReviewReadOnlyRepository, ReviewRepository>();
             services.AddScoped<IReviewUpdateOnlyRepository, ReviewRepository>();
+
+            services.AddScoped<ITokenRepository, TokenRepository>();
 
             services.AddScoped<IUnitOfWork, UnitOfWork>();
         }

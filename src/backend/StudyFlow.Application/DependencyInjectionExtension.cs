@@ -13,6 +13,7 @@ using StudyFlow.Application.UseCases.Subject.Deactivate;
 using StudyFlow.Application.UseCases.Subject.GetAll;
 using StudyFlow.Application.UseCases.Subject.GetById;
 using StudyFlow.Application.UseCases.Subject.Update;
+using StudyFlow.Application.UseCases.Token.RefreshToken;
 using StudyFlow.Application.UseCases.Topic.Create;
 using StudyFlow.Application.UseCases.Topic.Deactivate;
 using StudyFlow.Application.UseCases.Topic.GetAll;
@@ -60,6 +61,8 @@ namespace StudyFlow.Application
             services.AddScoped<IUpdateReviewUseCase, UpdateReviewUseCase>();
             services.AddScoped<IDeactivateReviewUseCase, DeactivateReviewUseCase>();
             services.AddScoped<IReviewReminderUseCase, ReviewReminderUseCase>();
+
+            services.AddScoped<IUseRefreshTokenUseCase, UseRefreshTokenUseCase>();
         }
 
         private static void AddAutoMapper(this IServiceCollection services)

@@ -198,4 +198,10 @@
   <data name="EMAIL_MAX_LENGTH" xml:space="preserve">
     <value>The email must be at most 255 characters long.</value>
   </data>
+  <data name="EXPIRED_SESSION" xml:space="preserve">
+    <value>Your session has expired. Please log in again to continue.</value>
+  </data>
+  <data name="INVALID_SESSION" xml:space="preserve">
+    <value>We couldn't find a valid session. Please log in to access this feature.</value>
+  </data>
 </root>
