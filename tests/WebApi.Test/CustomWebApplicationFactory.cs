@@ -16,6 +16,7 @@ namespace WebApi.Test
         private StudyFlow.Domain.Entities.Topic _topic = default!;
         private StudyFlow.Domain.Entities.Topic _topic2 = default!;
         private StudyFlow.Domain.Entities.Review _review = default!;
+        private StudyFlow.Domain.Entities.RefreshToken _refreshToken = default!;
         private string _password = string.Empty;
 
         protected override void ConfigureWebHost(IWebHostBuilder builder)
@@ -53,6 +54,7 @@ namespace WebApi.Test
         public string GetEmail() => _user.Email;
         public string GetPassword() => _password;
         public string GetUserName() => _user.Name;
+        public string GetRefreshToken() => _refreshToken.Value;
         public Guid GetUserIdentifier() => _user.UserIdentifier;
 
         public string GetSubjectId() => IdEncrypterBuilder.Build().Encode(_subject.Id);
@@ -80,6 +82,8 @@ namespace WebApi.Test
 
             _user.Password = encrypter.Encrypt(_password);
 
+            _refreshToken = RefreshTokenBuilder.Build(_user);
+
             dbContext.Database.EnsureCreated();
 
             dbContext.Users.Add(_user);
@@ -87,6 +91,7 @@ namespace WebApi.Test
             dbContext.Topics.Add(_topic);
             dbContext.Topics.Add(_topic2);
             dbContext.Reviews.Add(_review);
+            dbContext.RefreshTokens.Add(_refreshToken);
 
             dbContext.SaveChanges();
         }
