@@ -51,14 +51,17 @@ namespace UseCases.Test.Login.DoLogin
         {
             var encryption = new PasswordEncryptionBuilder().Verify(password).Build();
             var repository = new UserReadOnlyRepositoryBuilder();
-            var accessTokenGeerator = JwtTokenGeneratorBuilder.Build();
+            var accessTokenGenerator = JwtTokenGeneratorBuilder.Build();
+            var tokenRepository = new TokenRepositoryBuilder().Build();
+            var refreshTokenGenerator = RefreshTokenGeneratorBuilder.Build();
+            var unitOfWork = UnitOfWorkBuilder.Build();
 
             if (user is not null)
             {
                 repository.GetUserByEmail(user);
             }
 
-            return new DoLoginUseCase(repository.Build(), encryption, accessTokenGeerator);
+            return new DoLoginUseCase(repository.Build(), encryption, accessTokenGenerator, refreshTokenGenerator, tokenRepository, unitOfWork);
         }
     }
 }

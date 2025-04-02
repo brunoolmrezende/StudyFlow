@@ -1,4 +1,5 @@
 ﻿using CommonTestUtilities.AutoMapper;
+using CommonTestUtilities.Entities;
 using CommonTestUtilities.Repositories;
 using CommonTestUtilities.Requests;
 using CommonTestUtilities.Security;
@@ -63,13 +64,15 @@ namespace UseCases.Test.User.Register
             var writeOnlyRepository = UserWriteOnlyRepositoryBuilder.Build();
             var unitOfWork = UnitOfWorkBuilder.Build();
             var accessTokenGenerator = JwtTokenGeneratorBuilder.Build();
+            var refreshTokenGenerator = RefreshTokenGeneratorBuilder.Build();
+            var tokenRepository = new TokenRepositoryBuilder().Build();
 
             if (!string.IsNullOrWhiteSpace(email))
             {
                 readOnlyRepository.IsEmailRegisteredAndActive(email);
             }
 
-            return new RegisterUserUseCase(mapper, encryption, readOnlyRepository.Build(), writeOnlyRepository, unitOfWork, accessTokenGenerator);
+            return new RegisterUserUseCase(mapper, encryption, readOnlyRepository.Build(), writeOnlyRepository, unitOfWork, accessTokenGenerator, refreshTokenGenerator, tokenRepository);
         }
     }
 }

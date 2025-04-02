@@ -18,6 +18,7 @@ using StudyFlow.Infrastructure.Repositories;
 using StudyFlow.Infrastructure.Security.Cryptography;
 using StudyFlow.Infrastructure.Security.Token.Access.Generate;
 using StudyFlow.Infrastructure.Security.Token.Access.Validate;
+using StudyFlow.Infrastructure.Security.Token.Refresh;
 using StudyFlow.Infrastructure.Services.Email;
 using StudyFlow.Infrastructure.Services.LoggedUser;
 using System.Reflection;
@@ -90,6 +91,8 @@ namespace StudyFlow.Infrastructure
 
             services.AddScoped<IAccessTokenGenerator>(options => new AccessTokenGenerator(expirationTimeMinutes, signInKey!));
             services.AddScoped<IAccessTokenValidator>(options => new AccessTokenValidator(signInKey!));
+
+            services.AddScoped<IRefreshTokenGenerator, RefreshTokenGenerator>();
         }
 
         private static void AddSendReviewReminderMail(this IServiceCollection services, IConfiguration configuration)

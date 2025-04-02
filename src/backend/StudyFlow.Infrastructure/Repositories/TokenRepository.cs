@@ -16,7 +16,11 @@ namespace StudyFlow.Infrastructure.Repositories
 
         public async Task<RefreshToken?> GetToken(string refreshToken)
         {
-            return await _dbContext.RefreshTokens.AsNoTracking().FirstOrDefaultAsync(token => token.Value == refreshToken);
+            return await _dbContext
+                .RefreshTokens
+                .AsNoTracking()
+                .Include(token => token.User)
+                .FirstOrDefaultAsync(token => token.Value == refreshToken);
         }
 
         public async Task SaveNewRefreshToken(RefreshToken refreshToken)
